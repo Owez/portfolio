@@ -66,7 +66,7 @@ As you can see, some parts are accidently very similar 😄
 
 I picked the name "Jingo" after having an earworm similar to [this song](https://en.wikipedia.org/wiki/Jingle_Jangle_(The_Archies_song)) for whatever reason and "jingo" being similar to "jingle jangle". Once I searched on a dictionary for the meaning of Jingo (as I felt I heard it occasionally in usage), it provided me: `extreme chauvinism or nationalism marked especially by a belligerent foreign policy` which seemed suitable and quite funny for a new programming language with some new concepts.
 
-![The definition]({{ site.baseurl }}{% link images/jingoism-definition.png %})
+![The definition]({{ site.baseurl }}{% link public/img/jingoism-definition.png %})
 
 ## Links
 
