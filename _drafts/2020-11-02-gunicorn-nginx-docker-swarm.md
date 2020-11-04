@@ -110,7 +110,7 @@ This section underlines the configuration of the nginx files. This tutorial expe
 
 The `nginx.conf` file outlines the fundimential management of the nginx install and generally what global settings it should run. This file is typically stored in `/etc/nginx/nginx.conf` but in this case, as we are applying it to a container, it's just in the `./conf/nginx.conf` route:
 
-> ```nginx
+```nginx
 user  nginx;
 worker_processes  1;
  
