@@ -201,7 +201,7 @@ a.sidebar-nav-item:hover, a.sidebar-nav-item:focus {
   text-decoration: underline;
 }
 
-.theme-dark h1, .theme-dark h2, .theme-dark h3, .theme-dark h4, .theme-dark h5, .theme-dark h6, .theme-dark li a:hover, .theme-dark .post-title a {
+.theme-dark h1, .theme-dark h2, .theme-dark h3, .theme-dark h4, .theme-dark h5, .theme-dark h6, .theme-dark li a:hover, .theme-dark .post-title a, .theme-dark strong {
   color: #ffffff !important;
 }
 
