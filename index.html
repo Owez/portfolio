@@ -4,7 +4,11 @@ title: Home
 ---
 
 <div class="posts">
-  Latest post:
+  {% if paginator.page == 1 %}
+  <div class="page-tag">Latest post</div>
+  {% else %}
+  <div class="page-tag">Found post for page {{ paginator.page }}</div>
+  {% endif %}
   {% for post in paginator.posts %}
   <div class="post">
     <h1 class="post-title">
