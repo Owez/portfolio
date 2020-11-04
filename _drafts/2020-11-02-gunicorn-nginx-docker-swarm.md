@@ -30,16 +30,16 @@ First we'll be looking at the project file setup. This is quite an in depth tuto
 The method I personally recommend is to make a file structure following such:
 
 ```none
-Repository root			<-- Your repository directory
-	Dockerfile			<-- Dockerfile to run your_app from
-	docker-compose.yml	<-- Compose file to manage containers
-	conf				<-- Configuration files, optional
-		nginx.conf		<-- Nginx base file which imports prod.conf
-		prod.conf		<-- nginx production reverse-proxy
-	your_app			<-- Your flask/django/quant/etc app
-		__init__.py		<-- Module file containing `app`
-		other files		<-- Anything else you require
-	wsgi.py				<-- WSGI file to run production gunicorn
+Repository root            <-- Your repository directory
+    Dockerfile            <-- Dockerfile to run your_app from
+    docker-compose.yml    <-- Compose file to manage containers
+    conf                <-- Configuration files, optional
+        nginx.conf        <-- Nginx base file which imports prod.conf
+        prod.conf        <-- nginx production reverse-proxy
+    your_app            <-- Your flask/django/quant/etc app
+        __init__.py        <-- Module file containing `app`
+        other files        <-- Anything else you require
+    wsgi.py                <-- WSGI file to run production gunicorn
 ```
 
 Make sure the `__init__.py` file has an `app` that you can easily run without any configuration from the `wsgi.py` files (which will be what docker runs to run gunicorn in a production environment).
@@ -68,9 +68,9 @@ If you are following along to this tutorial with Flask, you should be able to co
 from my_web_app import app
 
 def launch():
-	"""Launcher for WSGI (gunicorn) to allow it to easily bind"""
+    """Launcher for WSGI (gunicorn) to allow it to easily bind"""
 
-	app.run()
+    app.run()
 ```
 
 ## The `Dockerfile`
@@ -165,20 +165,20 @@ Lets see the file:
 
 ```nginx
 upstream api_server {
-  server api:8000;
-  server localhost:8000;
-  server 127.0.0.1:8000;
+	server api:8000;
+	server localhost:8000;
+	server 127.0.0.1:8000;
 }
 
 server {
-  listen 80;
-  server_name localhost;
+	listen 80;
+	server_name localhost;
 
-  location / {
-    proxy_pass http://api_server/;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header Host $host;
-    proxy_redirect off;
+	location / {
+  		proxy_pass http://api_server/;
+  		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    	proxy_set_header Host $host;
+    	proxy_redirect off;
   }
 }
 ```
@@ -189,9 +189,9 @@ As you can see, this configuration does many things. Let's focus on that first b
 
 >```nginx
 >upstream api_server {
->	server api:8000;
->	server localhost:8000;
->	server 127.0.0.1:8000;
+>    server api:8000;
+>    server localhost:8000;
+>    server 127.0.0.1:8000;
 >}
 >```
 
@@ -205,15 +205,15 @@ The rest of the configuration files follow along the lines of:
 
 >```nginx
 >server {
->	listen 80;
->	server_name localhost;
+>    listen 80;
+>    server_name localhost;
 > 
->	location / {
->		proxy_pass http://api_server/;
->		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
->		proxy_set_header Host $host;
->		proxy_redirect off;
->	}
+>    location / {
+>        proxy_pass http://api_server/;
+>        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+>        proxy_set_header Host $host;
+>        proxy_redirect off;
+>    }
 >}
 >```
 
@@ -233,33 +233,33 @@ In this project, the real-world example of a sidecart is the nginx installation 
 version: "3.8"
 
 services:
-	api:
-		build:
-			context: .
-			dockerfile: Dockerfile
-		image: verata/api:latest
-		command: gunicorn --bind 0.0.0.0:8000 --workers 8 verata-api:app
-		secrets:
-			- SECRET_KEY
-			- PG_URL
+    api:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: verata/api:latest
+        command: gunicorn --bind 0.0.0.0:8000 --workers 8 verata-api:app
+        secrets:
+            - SECRET_KEY
+            - PG_URL
 
-	nginx:
-		image: nginx:latest
-		ports:
-			- 80:80
-		volumes:
-			- "./conf/nginx.conf:/etc/nginx/nginx.conf"
-			- "./conf/prod.conf:/etc/nginx/conf.d/prod.conf"
-		depends_on:
-			- api
-		deploy:
-			mode: global
+    nginx:
+        image: nginx:latest
+        ports:
+            - 80:80
+        volumes:
+            - "./conf/nginx.conf:/etc/nginx/nginx.conf"
+            - "./conf/prod.conf:/etc/nginx/conf.d/prod.conf"
+        depends_on:
+            - api
+        deploy:
+            mode: global
 
 secrets:
-	SECRET_KEY:
-		external: true
-	PG_URL:
-		external: true
+    SECRET_KEY:
+        external: true
+    PG_URL:
+        external: true
 ```
 
 As you may be able to see, we have two "services"; one is called `api` which uses the `Dockerfile` we just made to copy all of our web app files to a container ready to run. Lets take a look at this first!
@@ -270,15 +270,15 @@ The `api` service is the following block from the code block in the last section
 
 >```yml
 >services:
->	api:
->		build:
->			context: .
->			dockerfile: Dockerfile
->		image: verata/api:latest
->		command: gunicorn --bind 0.0.0.0:8000 --workers 8 verata-api:app
->		secrets:
->			- SECRET_KEY
->			- PG_URL
+>    api:
+>        build:
+>            context: .
+>            dockerfile: Dockerfile
+>        image: verata/api:latest
+>        command: gunicorn --bind 0.0.0.0:8000 --workers 8 verata-api:app
+>        secrets:
+>            - SECRET_KEY
+>            - PG_URL
 >```
 
 We will be further understanding each line in the sub-sections below!
@@ -289,8 +289,8 @@ This service is the "runner" of our main container, of which the `Dockerfile` ac
 
 >```yml
 >build:
->	context: .
->	dockerfile: Dockerfile
+>    context: .
+>    dockerfile: Dockerfile
 >```
 
 These lines tell Compose that the management is based off of the container we specified inside of the `Dockerfile`. The rest of the sections under the `api` service just dictate how to manage this Dockerfile.
@@ -323,9 +323,9 @@ This line tells gunicorn, which should have been installed through pipenv, to bi
 >from my_web_app import app
 > 
 >def launch():
->	"""Launcher for WSGI (gunicorn) to allow it to easily bind"""
+>    """Launcher for WSGI (gunicorn) to allow it to easily bind"""
 > 
->	app.run()
+>    app.run()
 >```
 
 As we can also see in the YAML code block, there is a `--workers 8`. This is referring to gunicorn's [workers](https://stackoverflow.com/questions/38425620/gunicorn-workers-and-threads), which allow multiple threads and similar to work in concurrency with each other.
@@ -336,18 +336,18 @@ After the gunicorn startup command, we can observe the file making "[Docker secr
 
 >```yml
 >secrets:
->	- SECRET_KEY
->	- PG_URL
+>    - SECRET_KEY
+>    - PG_URL
 >```
 
 In this section of the `api` service, we define which secrets to store. This is reflected at the end of our `Dockerfile` with the following lines:
 
 >```yml
 >secrets:
->	SECRET_KEY:
->		external: true
->	PG_URL:
->		external: true
+>    SECRET_KEY:
+>        external: true
+>    PG_URL:
+>        external: true
 >```
 
 This sets the secrets to be used and the point at which they may be defined. The `external: true` tag just forces the secrets to be externally defined using the `docker secret [..]` command.
@@ -357,17 +357,17 @@ This sets the secrets to be used and the point at which they may be defined. The
 The `nginx` service is the following block from the code block in the upper-level "*The Compose file (`docker-compose.yml`)*" section:
 
 >```yml
->	nginx:
->		image: nginx:latest
->		ports:
->			- 80:80
->		volumes:
->			- "./conf/nginx.conf:/etc/nginx/nginx.conf"
->			- "./conf/prod.conf:/etc/nginx/conf.d/prod.conf"
->		depends_on:
->			- api
->		deploy:
->			mode: global
+>    nginx:
+>        image: nginx:latest
+>        ports:
+>            - 80:80
+>        volumes:
+>            - "./conf/nginx.conf:/etc/nginx/nginx.conf"
+>            - "./conf/prod.conf:/etc/nginx/conf.d/prod.conf"
+>        depends_on:
+>            - api
+>        deploy:
+>            mode: global
 >```
 
 This service defines our nginx container and the configuration files to use.
@@ -392,7 +392,7 @@ We can do this with the following line as shown:
 
 >```yml
 >ports:
->	- 80:80
+>    - 80:80
 >```
 
 #### Volume setup
@@ -401,8 +401,8 @@ Once we have defined our nginx configuration files as we have done in one of the
 
 >```yml
 >volumes:
->	- "./conf/nginx.conf:/etc/nginx/nginx.conf"
->	- "./conf/prod.conf:/etc/nginx/conf.d/prod.conf"
+>    - "./conf/nginx.conf:/etc/nginx/nginx.conf"
+>    - "./conf/prod.conf:/etc/nginx/conf.d/prod.conf"
 >```
 
 This just maps our volumes straight over like a `mv` command to where we want them. So for example in our case:
@@ -417,9 +417,9 @@ These two are simple:
 
 >```yml
 >depends_on:
->	- api
+>    - api
 >deploy:
->	mode: global
+>    mode: global
 >```
 
 They just say that the `nginx` service must be built/ran *after* the `api` service is built/ran in order for there not to be any conflicts.
