@@ -1,8 +1,45 @@
+.clear-link {
+    text-decoration: normal;
+    color: unset;
+    font-style: normal !important;
+}
+
 .page-tag {
     padding: 0.5rem;
     background-color: #202020;
     border-radius: 3px;
-    width: 100%;
     margin-bottom: 0.75rem;
     text-align: center;
+}
+
+.post-box {
+    background-color: #202020;
+    padding: 1rem;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+}
+
+.post-box-inner {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.post-box-date {
+    margin: 0;
+    margin-left: 0.75rem;
+}
+
+.post-box-link {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: normal;
+}
+
+.post-box-tagline {
+    margin-bottom: 0;
+    font-style: italic;
+    border-top: 1px solid #2c2c2c;
+    padding-top: 0.25rem;
+    margin-top: 0.25rem;
 }

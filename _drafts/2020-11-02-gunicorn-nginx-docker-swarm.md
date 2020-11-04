@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Gunicorn + Nginx + Docker Swarm = 💖
+tagline: An in-depth guide to using gunicorn, nginx and docker swarm in harmony
 ---
 
 This semi-tutorial, semi-writeup will demonstrate how to properly configure a DevOps setup involving [docker-swarm](https://docs.docker.com/engine/swarm/) using [gunicorn](https://gunicorn.org/) and [nginx](https://www.nginx.com/) for automated container management for as small api or web app.

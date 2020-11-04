@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Bencoding
+tagline: My experiances regarding the bencode systems which .torrent files are made from
 ---
 
 As part of my current main project which is an extremely compact [BitTorrent implementation]({{ site.github }}/torro), I have developed a standalone implementation of bencode, the byte-first protocol all `.torrent` files use.

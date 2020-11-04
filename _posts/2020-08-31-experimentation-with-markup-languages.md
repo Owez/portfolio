@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Experimentation with Markup Languages
+tagline: A new, ill-devised but well-implemented markup language..
 ---
 
 I have recently came back onto an old side project to learn about scanning and parsing in Rust without the use of outside tools (just me and the standard library) and it led to an interesting markup language being created which was a joke at first but became something bigger.
