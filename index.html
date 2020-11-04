@@ -5,9 +5,9 @@ title: Home
 
 <div class="posts">
   {% if paginator.page == 1 %}
-  <div class="page-tag">Latest post</div>
+  Latest post:
   {% else %}
-  <div class="page-tag">Found post for page {{ paginator.page }}</div>
+  Page {{ paginator.page }}:
   {% endif %}
   {% for post in paginator.posts %}
   <div class="post">
