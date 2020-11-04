@@ -1,0 +1,30 @@
+# Setup
+title: Owen Griffiths
+tagline: Developer and student currently residing in Liverpool, UK.
+url:
+paginate: 3
+baseurl: "/"
+permalink: pretty
+
+# Gems
+plugins:
+  - jekyll-gist
+  - jekyll-paginate
+  - jekyll-seo-tag
+
+# Optimize Jekyll
+exclude:
+  - .editorconfig
+  - .git
+  - .jekyll-cache
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE.md
+  - README.md
+
+sass:
+  sass_dir: _sass
+  style: :compressed
+
+github:
+  repo: https://github.com/owez
