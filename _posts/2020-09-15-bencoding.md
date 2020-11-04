@@ -3,7 +3,7 @@ layout: post
 title: Bencoding
 ---
 
-As part of my current main project which is an extremely compact [BitTorrent implementation](https://github.com/owez/torro), I have developed a standalone implementation of bencode, the byte-first protocol all `.torrent` files use.
+As part of my current main project which is an extremely compact [BitTorrent implementation]({{ site.github }}/torro), I have developed a standalone implementation of bencode, the byte-first protocol all `.torrent` files use.
 
 This was an interesting side-track for me on the aforementioned main project to learn some more about custom parsers. Previously, I have only implemented simple character-based parsers but this bencode parser is a full top-down parser, fit for a full programming language (bar it containing a lexer, instead it consumes direct byte-based).
 
@@ -37,5 +37,5 @@ That's all for now, see below for the links to my implementation of bencode in R
 
 This bencoding module is just a small part of my effort to learn network programming and parsing, here are some links:
 
-- Main project: [link](https://github.com/owez/torro)
-- `bencode.rs` file (contains parser): [link](https://github.com/Owez/torro/blob/master/src/bencode.rs)
+- Main project: [link]({{ site.github }}/torro)
+- `bencode.rs` file (contains parser): [link]({{ site.github }}/torro/blob/master/src/bencode.rs)

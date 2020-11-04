@@ -3,7 +3,7 @@ layout: post
 title: Continued work on Jingo 🖥️
 ---
 
-I'm switching out my previous main project (learning Vue.js by creating a [markdown editor](https://github.com/Owez/zypo)) to an older project I have been slowly working on over the last couple of months. It is a large stepping stone in learning compiler development to me and is my first "proper" programming language, **Jingo**.
+I'm switching out my previous main project (learning Vue.js by creating a [markdown editor]({{ site.github }}/zypo)) to an older project I have been slowly working on over the last couple of months. It is a large stepping stone in learning compiler development to me and is my first "proper" programming language, **Jingo**.
 
 The plan for Jingo is to be lightweight (excluding building from source), statically linked, easy to write and *simple*. I also wanted to write everything 100% myself inside the language to know what everything does and therefore the lexer and parser are hand-written. By simple I mean a very functional and easy-to-use language but not a high degree of syntaxic complexity.
 

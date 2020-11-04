@@ -2,7 +2,7 @@
 title: Owen Griffiths
 tagline: Developer and student currently residing in Liverpool, UK.
 url:
-paginate: 3
+paginate: 1
 baseurl: "/"
 permalink: pretty
 
@@ -26,5 +26,4 @@ sass:
   sass_dir: _sass
   style: :compressed
 
-github:
-  repo: https://github.com/owez
+github: https://github.com/owez
