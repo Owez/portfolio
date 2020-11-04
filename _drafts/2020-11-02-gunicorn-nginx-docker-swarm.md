@@ -200,18 +200,18 @@ As for the other `localhost:8000` and `127.0.0.1:8000`, they are just used for d
 The rest of the configuration files follow along the lines of:
 
 > ```nginx
-server {
-    listen 80;
-    server_name localhost;
- 
-    location / {
-        proxy_pass http://api_server/;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
-        proxy_redirect off;
-    }
-}
-```
+> server {
+>     listen 80;
+>     server_name localhost;
+>  
+>     location / {
+>         proxy_pass http://api_server/;
+>         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+>         proxy_set_header Host $host;
+>         proxy_redirect off;
+>     }
+> }
+> ```
 
 This is just typical nginx configuration as you can see. $host is also a Docker-centric alias to automatically generate a host name (presumably based on an [environment variable](https://en.wikipedia.org/wiki/Environment_variable)).
 
@@ -314,15 +314,15 @@ command: gunicorn --bind 0.0.0.0:8000 --workers 8 verata-api:app
 This line tells gunicorn, which should have been installed through pipenv, to bind to my `verata-api.py` file (expressed as `[module name]:[function]`). If you where following the previous parts of the tutorial, you should have made a `wsgi.py` file with the following inside of it:
 
 > ```py
-# wsgi.py
- 
-from my_web_app import app
- 
-def launch():
-    """Launcher for WSGI (gunicorn) to allow it to easily bind"""
- 
-    app.run()
-```
+> # wsgi.py
+>  
+> from my_web_app import app
+>  
+> def launch():
+>     """Launcher for WSGI (gunicorn) to allow it to easily bind"""
+>  
+>     app.run()
+> ```
 
 As we can also see in the YAML code block, there is a `--workers 8`. This is referring to gunicorn's [workers](https://stackoverflow.com/questions/38425620/gunicorn-workers-and-threads), which allow multiple threads and similar to work in concurrency with each other.
 
