@@ -27,7 +27,7 @@ For this section, I had to make some custom templating and css, though it was on
 
 ![]({{ site.baseurl }}{% link public/img/new-portfolio-darkmode-html.png %})
 
-*This is an image due to Jekyll wanting to actually parse the `{% blah %}` parts..*
+*This is an image due to Jekyll wanting to actually parse the `{\% blah %}` parts..*
 
 ## The CSS
 
