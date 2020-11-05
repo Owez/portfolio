@@ -25,27 +25,9 @@ For this section, I had to make some custom templating and css, though it was on
 
 ## The HTML
 
-```html
----
-layout: page
-title: Posts
----
+![]({{ site.baseurl }}{% link public/img/new-portfolio-darkmode-html.png %})
 
-<p>An overview of the posts contained on my portfolio/blog.</p>
-
-<div class="post-overview">
-    {% for post in site.posts %}
-    <div class="post-box">
-        <div class="post-box-inner">
-            <h3 class="post-box-link"><a href="{{ post.url }}" class="clear-link">{{ post.title }}</a></h3>
-            <span class="post-date post-box-date">{{ post.date | date_to_string }}</span>
-        </div>
-        <p class="post-box-tagline">{% if post.tagline %}{{ post.tagline }}{% else %}Click to find out more!{% endif %}
-        </p>
-    </div>
-    {% endfor %}
-</div>
-```
+*This is an image due to Jekyll wanting to actually parse the `{% blah %}` parts..*
 
 ## The CSS
 
