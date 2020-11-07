@@ -5,10 +5,10 @@ title: The merkle tree
 
 ## Intro
 
-For an upcoming, *secret* project, I have been making a small crate for speedy [merkle trees](https://en.wikipedia.org/wiki/Merkle_tree) called "magirkle". The usage syntax looks like:
+For an upcoming, *secret* project, I have been making a small crate for speedy [merkle trees](https://en.wikipedia.org/wiki/Merkle_tree) called "irkle". The usage syntax looks like:
 
 ```rust
-use magirkle::Tree;
+use irkle::Tree;
 
 fn main() {
     println!("{:#?}", Tree::new(vec!["whatever", "here"]))
@@ -29,8 +29,8 @@ If you've ever worked with git and especially such things as [rebasing](https://
 
 ## Links
 
-That's about all for now, here are some links to where you may find details about my new "magirkle" library:
+That's about all for now, here are some links to where you may find details about my new "irkle" library:
 
-- **[GitHub (repository)](https://github.com/owez/magirkle)**
-- [Crates.io (crate)](https://crates.io/crates/magirkle)
-- [Docs.rs (documentation)](https://docs.rs/magirkle)
+- **[GitHub (repository)](https://github.com/owez/irkle)**
+- [Crates.io (crate)](https://crates.io/crates/irkle)
+- [Docs.rs (documentation)](https://docs.rs/irkle)
