@@ -4,7 +4,7 @@ tagline: Developer and student currently residing in Liverpool, UK.
 url:
 baseurl: "https://ogriffiths.com"
 paginate: 1
-permalink: /:year/:title.html
+permalink: /:year/title.html
 
 # Gems
 plugins:
