@@ -11,7 +11,7 @@ For an upcoming, *secret* project, I have been making a small crate for speedy [
 use magirkle::Tree;
 
 fn main() {
-    println!("{:#?}", Tree::new(["whatever", "here"]))
+    println!("{:#?}", Tree::new(vec!["whatever", "here"]))
 }
 ```
 
