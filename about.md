@@ -8,7 +8,7 @@ I'm Owen Griffiths, a developer and student currently residing in Liverpool, UK.
 
 ## Contact me
 
-You may contact me using these items or the social buttons on the bottom of this site 🖱️
+You may contact me using these links:
 
 - GitHub: "Owez" -- [Link](https://github.com/owez/)
 - Email: "{{ site.email }}" -- [Link](mailto:{{ site.email }})
