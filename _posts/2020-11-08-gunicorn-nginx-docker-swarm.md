@@ -15,7 +15,7 @@ A small index of each main section included inside of this article:
 1. "[File structure](#file-structure)"
 2. "[The WSGI (`wsgi.py`)](#the-wsgi-wsgi.py)"
 3. "[The `Dockerfile`](#the-dockerfile)"
-4. "[The Compose file (`docker-compose.yml`)](#the-compose-file-docker-compose.yml)"
+4. "[The Compose file (`docker-compose.yml`)](#the-compose-file-docker-compose-yml)"
 5. "[Working with Docker commands](#working-with-docker-commands)"
 
 First we'll be looking at the project file setup. This is quite an in depth tutorial, so buckle up! 
