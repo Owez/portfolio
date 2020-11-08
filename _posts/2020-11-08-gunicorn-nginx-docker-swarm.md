@@ -13,7 +13,7 @@ For this, I will be using [Flask](https://palletsprojects.com/p/flask/) as the a
 A small index of each main section included inside of this article:
 
 1. "[File structure](#file-structure)"
-2. "[The WSGI (`wsgi.py`)](#the-wsgi-wsgi.py)"
+2. "[The WSGI (`wsgi.py`)](#the-wsgi-wsgi-py)"
 3. "[The `Dockerfile`](#the-dockerfile)"
 4. "[The Compose file (`docker-compose.yml`)](#the-compose-file-docker-compose-yml)"
 5. "[Working with Docker commands](#working-with-docker-commands)"
