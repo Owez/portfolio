@@ -425,4 +425,6 @@ As for the `deploy` section, the `mode: global` simply states to the Compose fil
 
 ## Working with Docker commands
 
-***TODO: continue***
+***TODO: soon™️***
+
+I have currently not gotten around to finish this blog post as it has gotten quite long. I'd be happy to help if you need any small assistance; you can find me on my *contact* page 😄
