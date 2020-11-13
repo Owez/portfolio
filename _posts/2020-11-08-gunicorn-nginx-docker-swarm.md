@@ -146,7 +146,7 @@ http {
 }
 ```
 
-The main thing that should be changed from any normal configuration file is potentially a directly link to the `prod.conf` file as we see on the 2nd to last line:
+The main thing that should be changed from any normal configuration file is potentially a direct link to the `prod.conf` file as we see on the 2nd to last line:
 
 > ```nginx
 include              /etc/nginx/conf.d/prod.conf;
