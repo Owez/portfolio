@@ -4,13 +4,16 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
     <meta property="og:image" content="" />
-    {% if post %}
+    {% if page %}
+    <!--
+        These are known to be sometimes incorrect for pages like about and 404
+        but they are error resistant enough - Owen Griffiths, 27/11/2020
+    -->
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="{{ post.title }}" />
-    <meta property="og:description" content="{{ post.tagline }}" />
-    <meta property="og:published_time" content="{{ post.date | date_to_string }}" />
-    <meta property="og:url" content="{{ site.base_url }}{{ post.url }}" />
-
+    <meta property="og:title" content="{{ page.title }}" />
+    <meta property="og:description" content="{{ page.tagline }}" />
+    <meta property="og:published_time" content="{{ page.date | date_to_string }}" />
+    <meta property="og:url" content="{{ site.base_url }}{{ page.url }}" />
     {% else %}
     <meta property="og:type" content="website" />
     <meta property="og:title" content="{{ site.title }}" />
