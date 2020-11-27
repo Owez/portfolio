@@ -3,6 +3,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
+    {% if post %}
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ post.title }}" />
+    <meta property="og:description" content="{{ post.tagline }}" />
+    <meta property="og:published_time" content="{{ post.date | date_to_string }}" />
+    {% else %}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Owen Griffiths" />
+    {% endif %}
+
     <!-- Enable responsiveness on mobile devices-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
