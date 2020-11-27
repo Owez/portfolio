@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Continued work on Jingo 🖥️
+tagline: An update about the language I've been working on
 ---
 
 I'm switching out my previous main project (learning Vue.js by creating a [markdown editor]({{ site.github }}/zypo)) to an older project I have been slowly working on over the last couple of months. It is a large stepping stone in learning compiler development to me and is my first "proper" programming language, **Jingo**.
