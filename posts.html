@@ -12,7 +12,7 @@ title: Posts
             <h3 class="post-box-link"><a href="{{ post.url }}" class="clear-link">{{ post.title }}</a></h3>
             <span class="post-date post-box-date">{{ post.date | date_to_string }}</span>
         </div>
-        <p class="post-box-tagline">{% if post.tagline %}{{ post.tagline }}{% else %}Click to find out more!{% endif %}
+        <p class="post-box-tagline">↪️ {% if post.tagline %}{{ post.tagline }}{% else %}Click to find out more!{% endif %}
         </p>
     </div>
     {% endfor %}
