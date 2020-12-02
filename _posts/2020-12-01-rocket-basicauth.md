@@ -26,6 +26,6 @@ This example excludes the `use rocket;` imports and main function setups and jus
 
 Here are some links to find out more about this quick library:
 
-- **Github: https://github.com/Owez/rocket-basicauth**
-- Crates.io: https://crates.io/crates/rocket-basicauth
-- Docs.rs: https://docs.rs/rocket-basicauth
+- **Github: [https://github.com/Owez/rocket-basicauth](https://github.com/Owez/rocket-basicauth)**
+- Crates.io: [https://crates.io/crates/rocket-basicauth](https://crates.io/crates/rocket-basicauth)
+- Docs.rs: [https://docs.rs/rocket-basicauth](https://docs.rs/rocket-basicauth)
