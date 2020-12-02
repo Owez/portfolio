@@ -13,7 +13,7 @@ Today I created a simple library called `rocket-basicauth` which allows a high-l
 Here is the jist of the *entire* functionality of this library:
 
 ```rust
-/// Hello route with `auth` request guard, containing a `name` and `password`
+/// Hello route with `auth` request guard
 #[get("/hello/<age>")]
 fn hello(auth: BasicAuth, age: u8) -> String {
     format!("Hello, {} year old named {}!", age, auth.name)
