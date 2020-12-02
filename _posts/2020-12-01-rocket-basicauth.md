@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Rocket.rs basic auth
+title: Rocket.rs basic authentication
 tagline: A high-level basic access authentication request guard for Rocket.rs ✨
 ---
 
