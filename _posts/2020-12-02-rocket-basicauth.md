@@ -6,7 +6,7 @@ tagline: A high-level basic access authentication request guard for Rocket.rs �
 
 ## About
 
-Today I created a simple library called `rocket-basicauth` which allows a high-level interface to [basic access authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) using request guards, as an extension for the [Rocket.rs](https://rocket.rs) web framework ✨
+Recently, I've created a simple library called `rocket-basicauth` which allows a high-level interface to [basic access authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) using request guards, as an extension for the [Rocket.rs](https://rocket.rs) web framework ✨
 
 ## Demonstration
 
