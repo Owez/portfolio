@@ -4,6 +4,8 @@ title: Irkle Whitepaper
 tagline: Whitepaper for Irkle, a merkle tree library and ecosystem designed to be as fast as possible.
 ---
 
+<img src="{{ site.baseurl }}{% link public/img/irkle-whitepaper-merkle-tree.png %}" height="150">
+
 This document (layed out as a post) is the whitepaper for Irkle, a merkle tree library and ecosystem designed to be as fast as possible.
 
 This whitepaper is not intended to be a full scienfically evaluated report on the speed of Irkle, but more of a technology proposal with a working example of the proposal being a functioning library.
