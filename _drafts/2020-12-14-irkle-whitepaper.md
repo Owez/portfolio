@@ -4,7 +4,9 @@ title: Irkle Whitepaper
 tagline: Whitepaper for Irkle, a merkle tree library and ecosystem designed to be as fast as possible.
 ---
 
-<img src="{{ site.baseurl }}{% link public/img/irkle-whitepaper-merkle-tree.png %}" height="150">
+{% include toc.md %}
+
+## Preface
 
 This document (layed out as a post) is the whitepaper for Irkle, a merkle tree library and ecosystem designed to be as fast as possible.
 
@@ -142,11 +144,13 @@ Note that this is a simple demonstration of splitting data into chunks for  para
 
 [^ebparralel]: Merkle trees may be easily split into chunks for processing cores to compute, scaling perfectly to the number of hashes proportional to the logarithm of the number of leaf nodes of the tree, divided by core count, i.e. {% katex %}\frac{\log\left( n \right)=h}{c}{% endkatex %}
 
-## Links
+## Further reading
+
+### Links
 
 Some external links to find out more about this whitepaper and any primary work based upon it:
 
 - Git repository for Irkle -- [Link](https://github.com/owez/irkle)
 - Whitepaper link (the page your viewing) -- [Link](https://ogriffiths.com/2020/irkle-whitepaper)
 
-## Citations
+### Citations

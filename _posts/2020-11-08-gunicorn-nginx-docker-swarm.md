@@ -4,19 +4,13 @@ title: Gunicorn + Nginx + Docker Swarm = 💖
 tagline: An in-depth guide to using gunicorn, nginx and docker swarm in harmony
 ---
 
+{% include toc.md %}
+
+## About
+
 This semi-tutorial, semi-writeup will demonstrate how to properly configure a DevOps setup involving [docker-swarm](https://docs.docker.com/engine/swarm/) using [gunicorn](https://gunicorn.org/) and [nginx](https://www.nginx.com/) for automated container management for as small api or web app.
 
 For this, I will be using [Flask](https://palletsprojects.com/p/flask/) as the app for gunicorn to run but this can just as easily be done with [Django](https://www.djangoproject.com/) or even switching gunicorn out entirely in favour of a [Quart](https://pypi.org/project/Quart/) + [Hypercorn](https://pypi.org/project/Hypercorn/) based solution (which should just be a drop in!).
-
-## Guide Index
-
-A small index of each main section included inside of this article:
-
-1. "[File structure](#file-structure)"
-2. "[The WSGI (`wsgi.py`)](#the-wsgi-wsgi-py)"
-3. "[The `Dockerfile`](#the-dockerfile)"
-4. "[The Compose file (`docker-compose.yml`)](#the-compose-file-docker-compose-yml)"
-5. "[Working with Docker commands](#working-with-docker-commands)"
 
 First we'll be looking at the project file setup. This is quite an in depth tutorial, so buckle up! 
 
