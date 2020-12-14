@@ -217,6 +217,10 @@ a.sidebar-nav-item:hover, a.sidebar-nav-item:focus {
   color: #ffffff !important;
 }
 
+.theme-dark tbody tr:nth-child(2n+1) td, .theme-dark tbody tr:nth-child(2n+1) th {
+  background-color: #333333 !important;
+}
+
 /* Base16 (http://chriskempson.github.io/base16/#default) */
 
 /* Red */
