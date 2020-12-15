@@ -2,6 +2,7 @@
 layout: post
 title: New portfolio 🎉
 tagline: I have recently created a new small portfolio + blog website for myself using Jekyll Now as a quick-n-dirty way to generate a site.
+categories: Updates
 ---
 
 I have recently created a new small portfolio + blog website for myself using [Jekyll Now](https://www.jekyllnow.com/) as a quick-n-dirty way to generate a site. 

@@ -2,6 +2,7 @@
 layout: post
 title: Gunicorn + Nginx + Docker Swarm = 💖
 tagline: An in-depth guide to using gunicorn, nginx and docker swarm in harmony
+categories: Guides
 ---
 
 {% include toc.md %}

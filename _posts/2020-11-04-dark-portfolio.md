@@ -1,6 +1,7 @@
 ---
 layout: post
 title: A spooky portfolio 🎃
+categories: Updates
 ---
 
 Woo a new *dark-mode* portfolio!

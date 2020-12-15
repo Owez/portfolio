@@ -2,6 +2,7 @@
 layout: post
 title: Irkle Whitepaper
 tagline: Whitepaper for Irkle, a merkle tree library and ecosystem designed to be as fast as possible.
+categories: Research
 ---
 
 {% include toc.md %}
