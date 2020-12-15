@@ -17,7 +17,14 @@ title: Home
             </a>
         </h1>
 
-        <span class="post-date">{{ post.date | date_to_string }}</span>
+        <span class="post-date">
+            {{ post.date | date_to_string }}
+            {% if post.categories %}
+            {% for category in post.categories %}
+            <span class="category">{{ category }}</span>
+            {% endfor %}
+            {% endif %}
+        </span>
 
         {{ post.content }}
     </div>

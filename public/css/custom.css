@@ -35,3 +35,11 @@
     padding-top: 0.25rem;
     margin-top: 0.25rem;
 }
+
+.category {
+    background-color: #202020;
+    padding: 0.2rem;
+    border-radius: 0.5rem;
+    margin-left: 0.35rem;
+    font-size: smaller;
+}
