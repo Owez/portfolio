@@ -5,6 +5,8 @@ tagline: Whitepaper for Irkle, a merkle tree library and ecosystem designed to b
 categories: Research
 ---
 
+<img class="img-pad-white" src="{{ site.baseurl }}{% link public/img/merkle-tree.png %}" height="275" />
+
 {% include toc.md %}
 
 ## Preface

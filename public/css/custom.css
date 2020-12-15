@@ -43,3 +43,8 @@
     margin-left: 0.35rem;
     font-size: smaller;
 }
+
+.img-pad-white {
+    padding: 1rem;
+    background-color: #ffffff;
+}
