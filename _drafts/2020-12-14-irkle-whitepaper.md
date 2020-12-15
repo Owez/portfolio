@@ -49,7 +49,7 @@ With this arrangement, the data may become more computationally impactful to exp
 
 Note that this may not give a perfect representation of the data blocks as a perfect {% katex %}2^n{% endkatex %} is rare and is what's needed to have *no* empty/filler nodes in the latter {% katex %}\frac{2}{n}{% endkatex %}'s of a tree.
 
-Another key component of array-based trees is the [locality of data (or *locality of reference*)](https://en.wikipedia.org/wiki/Locality_of_reference) presented in any array.[^arrayloc] This is especially useful for traversal of a binary and therefore a merkle tree, as node siblings are next to each other (i.e. left is $n-1$ and right is $n+1$) for example.
+Another key component of array-based trees is the [locality of data (or *locality of reference*)](https://en.wikipedia.org/wiki/Locality_of_reference) presented in any array.[^arrayloc] This is especially useful for traversal of a binary and therefore a merkle tree, as node siblings are next to each other (i.e. left is {% katex %}n-1{% endkatex %} and right is {% katex %}n+1{% endkatex %}) for example.
 
 [^fullperfect]: D. W. Harder, (2011). *Algorithms and Data Structure*. Department of Electrical and Computer Engineering, University of Waterloo.
 [^arrayloc]: T. Cormen, (2001). *Introduction to algorithms*. 2nd ed. Cambridge: MIT Press.
