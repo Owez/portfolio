@@ -74,6 +74,6 @@ I picked the name "Jingo" after having an earworm similar to [this song](https:/
 
 Some links to find Jingo-related bits and bobs:
 
-- **[Compiler core + official CLI](https://github.com/owez/jingo)**
-- [Example of Jingo in use](https://github.com/Owez/jingo/tree/master/examples)
+- **[Compiler core + official CLI]({{ site.github }}/jingo)**
+- [Example of Jingo in use]({{ site.github }}/jingo/tree/master/examples)
 - [Tutorial used for inspiration](https://craftinginterpreters.com/)

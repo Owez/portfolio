@@ -154,7 +154,7 @@ Note that this is a simple demonstration of splitting data into chunks for  para
 
 Some external links to find out more about this whitepaper and any primary work based upon it:
 
-- Git repository for Irkle -- [Link](https://github.com/owez/irkle)
+- Git repository for Irkle -- [Link]({{ site.github }}/irkle)
 - Whitepaper link (the page your viewing) -- [Link](https://ogriffiths.com/2020/irkle-whitepaper)
 
 ### Citations
