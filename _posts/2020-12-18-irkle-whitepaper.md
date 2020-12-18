@@ -64,9 +64,11 @@ Using the examples given in the previous proposal of array-based trees, a *data 
 [&charlie, &delta, &foxtrot, &golf]
 ```
 
-Another potential use this brings is a concrete pathing method for data, if used in conjunction with an array-based tree as previously discussed. If it is known that parent nodes are always $\left\lfloor \frac{n-1}{2} \right\rfloor$ from the child.
+Another potential use this brings is a concrete pathing method for data, if used in conjunction with an array-based tree as previously discussed.
 
-We may recurse up the tree once finding the desired data block to quickly create a path to our data node in order to execute such functions as tree modification quickly; using either the found hash of the parent node and adding it to an array which is reversed (in order to go parent --> child rather than child --> parent) or alternatively using the [modulo](https://en.wikipedia.org/wiki/Modulo_operation)[^whymod] of the previously stated equation each time to figure if the data block/last node was to the left or right of a given parent node.
+If it is known that parent nodes are always $\left\lfloor \frac{n-1}{2} \right\rfloor$ from the child, we may recurse up the tree once finding the desired data block to quickly create a path to our data node in order to execute such functions as tree modification quickly.
+
+This may be done by either utilising the found hash of the parent node and adding it to an array which is then reversed (in order to go parent --> child rather than child --> parent) or alternatively using the [modulo](https://en.wikipedia.org/wiki/Modulo_operation)[^whymod] of the previously stated equation each time to figure if the data block/last node was to the left or right of a given parent node.
 
 In [Python](https://www.python.org/), we may write the modulo-based (non-recusive for simplicity) method similar to the following:
 
