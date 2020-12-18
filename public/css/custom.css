@@ -19,7 +19,8 @@
 
 .post-box-date {
     margin: 0;
-    margin-left: 0.75rem;
+    min-width: 6.5rem;
+    text-align: right;
 }
 
 .post-box-link {
