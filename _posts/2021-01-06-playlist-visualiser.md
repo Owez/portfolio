@@ -5,6 +5,8 @@ tagline: Creating a playlist visualiser with Pillow and ffmpeg
 catagories: Showcases
 ---
 
+{% include toc.md %}
+
 There has recently been a spike in popularity with playlist videos on youtube, presenting a scrolling playlist of a specific genre as music in video, as well as audio form, I've wanted to create one of these videos but automate the process as much as possible to put programming to a real task!
 
 Not to mention that this was also a perfect oppertunity to tinker with image libraries such as [PIL](https://pypi.org/project/PIL/) or the more recent [Pillow](https://python-pillow.org/) based upon the fomer for the first time, for use in more projects down the road.
