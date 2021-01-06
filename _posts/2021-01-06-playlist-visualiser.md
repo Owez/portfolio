@@ -2,7 +2,7 @@
 layout: post
 title: Playlist visualiser
 tagline: Creating a playlist visualiser with Pillow and ffmpeg
-catagories: Showcases
+categories: Showcases
 ---
 
 ## Videos
