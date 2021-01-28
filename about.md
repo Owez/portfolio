@@ -8,12 +8,14 @@ I'm Owen Griffiths, a developer and student currently residing in Liverpool, UK.
 
 ## Skills
 
+- Open source experience
 - Rust
 - Python
 - Docker
 - Compiler infastructure
 - Rocket.rs & Actix
 - Flask ecosystem
+- General Linux/Windows admin know-how
 
 ## Featured Projects
 
