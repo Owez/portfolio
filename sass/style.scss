@@ -1,20 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=IBM+Plex+Serif&display=swap');
-
-// TODO: variables
-
+// Body
 body {
     color: rgb(217, 217, 217);
     background-color: black;
     background-color: rgb(8, 8, 22);
     margin: 0;
-}
-
-p,
-a {
-    font-size: 1.25rem;
     font-family: 'IBM Plex Sans', sans-serif;
 }
 
+
+// Increased font size
+p,
+a {
+    font-size: 1.25rem;
+}
+
+// Brighter headings with serif font
 h1,
 h2,
 h3,
@@ -26,18 +26,22 @@ h6,
     font-family: 'IBM Plex Serif', serif;
 }
 
+// Space between the screen and the left of navbar
 #nav-left {
     margin-left: 3rem;
 }
 
+// Space between the screen and the right of navbar
 #nav-right {
     margin-right: 3rem;
 }
 
+// Large main headings
 h1 {
     font-size: 2.35rem;
 }
 
+// Navbar
 nav {
     width: 100vw;
     height: 75px;
@@ -46,50 +50,7 @@ nav {
     align-items: center;
 }
 
-#splash {
-    width: 100vw;
-    padding-top: 15vh;
-    padding-bottom: 27.5vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 5rem;
-    background: rgb(24, 24, 56);
-    background-color: black;
-    border-bottom: 1px solid rgb(18, 18, 51);
-
-    div {
-        width: 50vw;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-#title {
-    font-size: 3.75rem;
-    margin: 0;
-    margin-top: 0.75rem;
-}
-
-#page {
-    margin-left: 22vw;
-    margin-right: 22vw;
-    margin-bottom: 5rem;
-}
-
-#statuses {
-    display: flex;
-    width: 50vw;
-    justify-content: space-evenly;
-    color: rgb(169, 169, 169);
-
-    p {
-        margin-top: 1rem;
-    }
-}
-
+// Links in navbar
 .nav-link {
     text-decoration: none;
     color: inherit;

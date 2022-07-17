@@ -1,0 +1,34 @@
+// Centered main headings
+h1 {
+    text-align: center;
+}
+
+// Space between each category
+.category {
+    margin-top: 3rem;
+    margin-bottom: 6rem;
+}
+
+// Article list
+.articles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    // Alignment for title on left and date on right
+    a {
+        width: 40vw;
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem;
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
+
+.date {
+    color: rgb(169, 169, 169);
+    margin-left: 1.5rem;
+}
