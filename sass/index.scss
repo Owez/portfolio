@@ -1,12 +1,10 @@
+// Main hero with background
 #hero {
     width: 100vw;
     height: 22.5rem;
     text-align: center;
-    background-image: url(/blur.png);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 60% 60%;
 
+    // Bolded title
     h1 {
         font-size: 40px;
         margin-top: 0;
@@ -15,6 +13,7 @@
         font-weight: bold;
     }
 
+    // Light subtitles
     p {
         font-size: 1.75rem;
         margin-top: 0.75rem;

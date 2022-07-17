@@ -7,22 +7,26 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-
 // Increased font size
 p,
-a {
-    font-size: 1.25rem;
+a,
+ol,
+ul {
+    font-size: 1.2rem;
+    line-height: 1.75rem;
 }
 
-// Brighter headings with serif font
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.nav-link {
-    color: rgb(235, 235, 235);
+// Space between list elements
+ol,
+ul {
+    * {
+        margin-bottom: 0.75rem;
+    }
+}
+
+// Link colouring for dark background
+a {
+    color: rgb(52, 110, 191);
 }
 
 // Space between the screen and the left of navbar
@@ -33,11 +37,6 @@ h6,
 // Space between the screen and the right of navbar
 #nav-right {
     margin-right: 3rem;
-}
-
-// Large main headings
-h1 {
-    font-size: 2.35rem;
 }
 
 // Navbar
@@ -54,4 +53,12 @@ nav {
     text-decoration: none;
     color: inherit;
     font-size: 1.3rem;
+}
+
+// Blurry background
+.blur {
+    background-image: url(/blur.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 60% 60%;
 }
