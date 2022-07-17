@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+<script src="/fancydate.js"></script>
+{% endblock scripts %}
+
+{% block content %}
+{# Custom styling #}
+<style>
+    nav {
+        background-color: black;
+    }
+
+    #categories {
+        display: flex;
+        width: 50vw;
+        justify-content: space-evenly;
+    }
+
+    .category {
+        font-weight: bold;
+        color: rgb(52, 110, 191);
+    }
+</style>
+{# Splashscreen #}
+<div id="splash">
+    <div>
+        {# Categories #}
+        <div id="categories">
+            {% for key, taxonomy in page.taxonomies %}
+            {% if key == "categories" %}
+            {% set categories = taxonomy %}
+            {% for category in categories %}
+            <a href="/blog" class="category">{{ category }}</a>
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+        </div>
+        {# Title #}
+        <p id="title">{{ page.title }}</p>
+        {# Statuses #}
+        <div id="statuses">
+            <p class="date">{{ page.date }}</p>
+        </div>
+    </div>
+</div>
+{# Content #}
+<div id="page">
+    {{ page.content | safe }}
+</div>
+{% endblock content %}

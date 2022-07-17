@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html>
+
+<head>
+    {# Metadata #}
+    <meta charset="utf-8">
+    {# Styling #}
+    <link rel="stylesheet" href="/style.css">
+    {# Title #}
+    <title>Owen Griffiths{% if section.title %} - {{ section.title }}{% endif %}</title>
+</head>
+
+<body>
+    {# Navbar #}
+    <nav>
+        <a id="nav-left" class="nav-link" href="/">Owen Griffiths</a>
+        <a id="nav-right" class="nav-link" href="/blog">Blog</a>
+    </nav>
+    {# Content #}
+    {% block content %}{% endblock %}
+    {# Scripts #}
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>
