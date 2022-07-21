@@ -1,8 +1,11 @@
+// Colours
+$bg: rgb(8, 8, 22);
+
 // Body
 body {
     color: rgb(217, 217, 217);
     background-color: black;
-    background-color: rgb(8, 8, 22);
+    background-color: $bg;
     margin: 0;
     font-family: 'Inter', sans-serif;
 }
@@ -26,7 +29,7 @@ ul {
 
 // Link colouring for dark background
 a {
-    color: rgb(52, 110, 191);
+    color: rgb(59, 118, 202);
 }
 
 // Space between the screen and the left of navbar
@@ -57,7 +60,20 @@ nav {
 
 // Blurry background
 .blur {
-    background-image: url(/blur.png);
+    background-image: url(/img/blur.png);
     background-repeat: no-repeat;
     background-size: 60% 60%;
+}
+
+// Codeblock
+pre {
+    background-color: $bg  !important;
+    padding: 1rem;
+}
+
+// Better image sizing
+img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
 }

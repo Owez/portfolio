@@ -7,9 +7,9 @@ categories = ["Parsers"]
 
 # Introduction
 
-I've been writing a lot of documentation in the past year for my schoolwork but there's always been one big problem: document processors. [Word](https://www.microsoft.com/en-us/microsoft-365/word) messes up numbered headings so much that it feels like it's doing it on purpose.
+In the past year I've wrote a lot of documentation for my schoolwork, but there's always been one big issue: word processors. My documents constantly have broken formatting on Word, LibreOffice, or any of the other packages I've tried.
 
-When you are editing documents day-in day-out which are up to thirty thousand words long, the failures of document processes become apparent. This is why I've developed a new tool to solve this problem.
+This has a huge impact when I'm working on documents up to 30 thousand words long day-in day-out, which is why I've developed a new tool to solve this problem.
 
 # The Fix
 
@@ -18,25 +18,25 @@ As a developer I use [Markdown](https://www.markdownguide.org/basic-syntax/) a l
 ```markdown
 # My Document
 
-Hello there and thanks for reading my little document!
+Hello there and *thanks* for reading my **little** document!
 
 1. There's not much on this list.
-2. But I hope you enjoy it anyway.
+2. But I hope you __enjoy__ it anyway.
 ```
 
 The only real downside to Markdown is that theres no canonical way to display it to a reader. The document above, for example, can be rendered in an infinite amount of ways — so what if I rendered it as a Word document?
 
 # Getting Started
 
-To make a markdown renderer that make Word documents, I need to realistically convert a `.md` document to a `.docx` document.
+To make a Markdown renderer that produces Word documents, I need to realistically convert a `.md` document to a `.docx` document.
 
 ## Rust
 
 My first plan was to make it using [Rust](https://www.rust-lang.org) which is the programming language I use for most of my development currently. It's a fast language and once it compiles your code, it creates a "statically-linked" binary which contains everything it needs in a single file.
 
-One of the reasons why modern word processors are still so inconsistent is because the `.docx` format is horrible to work with. The specification which defines how it works is about the length of a novel, so I need to use a third-party [library](https://en.wikipedia.org/wiki/Library_(computing)) to generate all of the hard `.docx` stuff.
+One of the reasons why modern word processors are still so inconsistent is because the format Word uses is horrible to work with. The specification which defines how it works is about the length of a novel, so I need to use a third-party [library](https://en.wikipedia.org/wiki/Library_(computing)) to generate all of the hard `.docx` stuff.
 
-<!-- TODO: specification image -->
+![Excerpt from the specification](/img/docxtoc.png)
 
 The problem with using Rust is that it's a newer language with a smaller community compared to a lot of other languages, so it doesn't have a lot of community-created content which others do. And this turns out to be the case with libraries that create `.docx` files — there's only two available and both of them aren't usable.
 

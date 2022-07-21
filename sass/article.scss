@@ -4,6 +4,11 @@
     width: 50vw;
     justify-content: space-evenly;
     margin-bottom: 1.5rem;
+
+    // No underline
+    a {
+        text-decoration: none;
+    }
 }
 
 // Splashscreen
