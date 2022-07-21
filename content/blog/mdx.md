@@ -36,6 +36,8 @@ My first plan was to make it using [Rust](https://www.rust-lang.org) which is th
 
 One of the reasons why modern word processors are still so inconsistent is because the `.docx` format is horrible to work with. The specification which defines how it works is about the length of a novel, so I need to use a third-party [library](https://en.wikipedia.org/wiki/Library_(computing)) to generate all of the hard `.docx` stuff.
 
+<!-- TODO: specification image -->
+
 The problem with using Rust is that it's a newer language with a smaller community compared to a lot of other languages, so it doesn't have a lot of community-created content which others do. And this turns out to be the case with libraries that create `.docx` files — there's only two available and both of them aren't usable.
 
 After finding this out I started creating my own library, but I realized that it'd take way too long to create, so I needed to find another solution.
