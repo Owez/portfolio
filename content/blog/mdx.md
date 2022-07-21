@@ -7,7 +7,7 @@ categories = ["Parsers"]
 
 # Introduction
 
-In the past year I've wrote a lot of documentation for my schoolwork, but there's always been one big issue: word processors. My documents constantly have broken formatting on Word, LibreOffice, or any of the other packages I've tried.
+In the past year I've wrote a lot of documentation for my schoolwork, but there's always been one big issue: word processors. No matter what software I use, whether it be Word or LibreOffice, documents find new ways to break themselves.
 
 This has a huge impact when I'm working on documents up to 30 thousand words long day-in day-out, which is why I've developed a new tool to solve this problem.
 
@@ -57,4 +57,16 @@ document.add_heading("My Document", 0)
 document.add_paragraph("Hello there and thanks for reading my little document!")
 ```
 
-TODO
+This layout is as simple as it gets for code, and it's luckily exactly what I need for my converter!
+
+# Markdown
+
+To convert Markdown to a Word document, I need to give my program the ability to *parse* a Markdown file. My program needs to be able to read each line of Markdown and actually understand it, rather than just loading some random file. Rubbish in, rubbish out.
+
+There are a load of libraries for parsing Markdown inside of Python, but the vast majority are for converting Markdown to HTML. This is useful in many situations — the text your reading has gone through this exact process.
+
+![Example of this process](/img/mdtohtml.png)
+
+Unfortunately, Markdown to HTML is not something that's useful, because I need to be able to convert to the Word document in real-time. This is because of some intracacies when it comes to "run formatting" inside of Word documents; prepare for boring specification stuff.
+
+TODO: talk about spec
