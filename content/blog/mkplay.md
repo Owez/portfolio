@@ -2,7 +2,7 @@
 title = "Playlist Visualiser"
 date = "2021-01-06"
 [taxonomies]
-categories = ["Graphics"]
+categories = ["Design"]
 +++
 
 # Introduction
