@@ -37,7 +37,7 @@ My first plan was to make it using [Rust](https://www.rust-lang.org) which is th
 
 One of the reasons why modern word processors are still so inconsistent is because the format Word uses is horrible to work with. The specification which defines how it works is about the length of a novel, so I need to use a third-party [library](https://en.wikipedia.org/wiki/Library_(computing)) to generate all of the hard `.docx` stuff.
 
-![Library's homepage](/img/pydocx.png)
+![Library's homepage](/img/mdtodocx/pydocx.png)
 
 The problem with using Rust is that it's a newer language with a smaller community compared to a lot of other languages, so it doesn't have a lot of community-created content which others do. And this turns out to be the case with libraries that create `.docx` files — there's only two available and both of them aren't usable.
 
@@ -66,7 +66,7 @@ To convert Markdown to a Word document, I need to give my program the ability to
 
 There are a load of libraries for parsing Markdown inside of Python, but the vast majority are for converting Markdown to [HTML](https://en.wikipedia.org/wiki/HTML). This is useful in many situations — the text your reading has gone through this exact process.
 
-![Example of this process](/img/mdtohtml.png)
+![Example of this process](/img/mdtodocx/mdtohtml.png)
 
 Unfortunately, Markdown to HTML isn't that useful for this project because I need to be able to convert to the Word document in real-time. This is due to some intricacies when it comes to "run formatting" inside of Word documents, so I need to make a custom solution.
 
