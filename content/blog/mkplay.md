@@ -1,6 +1,6 @@
 +++
 title = "Playlist Visualiser"
-date = "2021-01-06"
+date = "2022-07-27"
 [taxonomies]
 categories = ["Design"]
 +++
@@ -46,4 +46,4 @@ The script, now called "mkplay", is quite easy to use and can be seen/downloaded
 
 [**https://github.com/owez/mkplay**](https://github.com/owez/mkplay)
 
-It's currently the 27th of July 2022 and I'm restoring this article to be used in my new blog website. I've not done much with this program since, but I'd quite like to mention it to some of the people who make playlists; it would make for a good sequel.
+I restored this article to be used in my new blog website, I originally wrote this article in January 2021. I've not done much with this program since, but I'd quite like to mention it to some of the people who make playlists; it would make for a good sequel.
