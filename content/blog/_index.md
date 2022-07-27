@@ -5,10 +5,14 @@ page_template = "article.html"
 +++
 
 <!-- Template for articles:
+
+
 +++
 title = ""
 date = ""
 [taxonomies]
 categories = [""]
 +++ 
+
+
 -->
