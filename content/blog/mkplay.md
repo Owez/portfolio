@@ -31,9 +31,14 @@ Once I [completed](https://github.com/owez/tagzen) the API, my first semi-succes
 
 ![First working visualisation](/img/mkplay/mkplayeg.png)
 
-As you can see, I had the basic fonts and layout working — along with a little indicator which shows the active song which shows as the song in question is playing once generated. There are some discrepancies on this render though.
+It's good to see the visualiser working but there where still a few bugs to iron out; the title font is too large and bold as compared to the rest of the image and the album name has a strange double-space. 
 
-For example, the title font is too large and bold as compared to the rest of the image and the text that goes from "In Rainbows" to "From the Basement" has a strange double-space. All of these issues have since been fixed.
+Once all of the issues where fixed and some polish was added to the whole thing, I created two demo videos:
+
+- [psychedelia.](https://www.youtube.com/watch?v=annp92OPZgQ)
+- [one more time.](https://www.youtube.com/watch?v=Sl3XgtKYq4E)
+
+Now all that I really need to do to get my playlist video empire off the ground is get a better taste in music 😎
 
 # Conclusion
 
