@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/style.css">
     {% block styling %}{% endblock styling %}
     {# Title #}
-    <title>Owen Griffiths{% if section.title %} - {{ section.title }}{% endif %}</title>
+    <title>Owen Griffiths{% if page.title %} - {{ page.title }}{% elif section.title %} - {{ section.title }}{% endif %}</title>
 </head>
 
 <body>
