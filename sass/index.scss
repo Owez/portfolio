@@ -1,23 +1,43 @@
-// Main hero with background
+// Central hero content
 #hero {
     width: 100vw;
-    height: 22.5rem;
+    height: calc(100vh - 75px); // minus nav
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(8, 8, 22);
+    background: url(/img/hero.png) no-repeat center center fixed;
+    background-size: cover;
+
+    // Inner content
+    div {
+        text-align: center;
+        margin-bottom: 5rem;
+
+        // Name
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
+
+        // Tagline
+        p {
+            font-weight: lighter;
+            font-size: 1.75rem;
+            margin-top: 0.75rem;
+        }
+    }
+}
+
+// Bottom email
+#email {
+    font-family: monospace;
+    bottom: 0;
     text-align: center;
-
-    // Bolded title
-    h1 {
-        font-size: 40px;
-        margin-top: 0;
-        padding-top: 5.75rem;
-        margin-bottom: 0;
-        font-weight: bold;
-    }
-
-    // Light subtitles
-    p {
-        font-size: 1.75rem;
-        margin-top: 0.75rem;
-        line-height: 3rem;
-        font-weight: 300;
-    }
+    position: fixed;
+    text-decoration: none;
+    color: inherit;
+    opacity: 0.35;
+    left: calc(50% - 6.75rem);
+    padding: 0.5rem;
 }
