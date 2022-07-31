@@ -107,4 +107,62 @@ The next component in Markdown that comes to my head are bulletpoints. On every 
   for some reason.
 ```
 
-<!-- TODO: finish -->
+This makes it annoying to parse bluepoints, so instead of following the specification, I just won't implement it out of laziness. So to parse normal bulletpoints, I made a class similar to the one for headings:
+
+```python
+class PointBullet:
+    """Representation of a bulletpoint in Markdown"""
+
+    @staticmethod
+    def _md(line: str) -> Self:
+        """Parses a line of Markdown into new bulletpoint"""
+        level, line = _level_info(line)
+        line = line[1:].lstrip()
+
+        # BODGE: python doesn't like staticmethod and inheritance
+        para = super(PointBullet, PointBullet)._md(ctx, line)  
+        bullet = PointBullet(ctx, para.runs)
+        bullet.level = level
+
+        return bullet
+```
+
+The next two subsections (levelling and bodging) will break this method down, feel free to skip over them if you know what's happening. 
+
+<!-- TODO: conversion to docx -->
+
+### Levelling
+
+Things are more complicated with bulletpoints because of the need for "levels", also known as indentation.
+
+![Crazy person vandalizing their poor document](/img/mdtodocx/indent.png)
+
+If you've ever written a complicated-ish document in Word, you might have pressed the tab key on a bulletpoint to make sublists, this is what we need to calculate with the `_level_info(..)` function:
+
+```python
+def _level_info(line: str) -> tuple:
+    """Figures out level information and returns it and the line without spacing"""
+    stripped = line.lstrip()
+    num = len(line) - len(stripped)
+    level = int(num / 2)
+    return (level, stripped)
+```
+
+As you can see, this `_level_info` function is extremely similar to the calculations for the heading hashtags, but this time is divides by 2 at the end because two spaces in Markdown means one tabbing level.
+
+### Bodging
+
+Python isn't really built for doing what I'm doing, when it comes to the [`@staticmethod`](https://docs.python.org/3/library/functions.html#staticmethod) annotation, even if it makes objects nicer to use. When it's combined with inheritance, I need to bodge it by putting the object twice:
+
+```python
+# The bodge forces me to do two objects in super
+para = super(PointBullet, PointBullet)._md(ctx, line)
+```
+
+Coming from a Rust development background, I'm used to using [Traits](https://doc.rust-lang.org/book/ch10-02-traits.html) rather than conventional [Objects](https://en.wikipedia.org/wiki/Object-oriented_programming) in programming. When I develop Python, I try to include the `@staticmethod` annotation a lot because it allows me to make a custom [`__init__`](https://www.geeksforgeeks.org/__init__-in-python/) method.
+
+## Numbered Lists
+
+Now that bulletpoints are out of the way, its time to implement their relative: lists.
+
+<!-- TODO -->
