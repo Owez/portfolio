@@ -58,7 +58,7 @@ document.add_heading("My Document", 0)
 document.add_paragraph("Hello there and thanks for reading my little document!")
 ```
 
-This layout is as simple as it gets for code, and it's luckily exactly what I need for my converter!
+This layout is as simple as it gets for code, and it's luckily exactly what I need!
 
 # Markdown
 
@@ -127,9 +127,19 @@ class PointBullet:
         return bullet
 ```
 
-The next two subsections (levelling and bodging) will break this method down, feel free to skip over them if you know what's happening. 
+All thats left for bulletpoints is to convert them from the class to the docx file. This can be done quite easily with the self-explanatory code below:
 
-<!-- TODO: conversion to docx -->
+```python
+    def _docx(self, docx_doc: docx.Document):
+        """Adds a corresponding docx bulletpoint"""
+        docx_para = super()._docx(docx_doc)
+        if self.level == 0:
+            docx_para.style = "List Bullet"
+        else:
+            docx_para.style = f"List Bullet {self.level+1}"
+```
+
+The next two subsections (levelling and bodging) will break the `_md` method down in the initial class deceleration, feel free to skip over them if you know what's happening!
 
 ### Levelling
 
@@ -161,8 +171,45 @@ para = super(PointBullet, PointBullet)._md(ctx, line)
 
 Coming from a Rust development background, I'm used to using [Traits](https://doc.rust-lang.org/book/ch10-02-traits.html) rather than conventional [Objects](https://en.wikipedia.org/wiki/Object-oriented_programming) in programming. When I develop Python, I try to include the `@staticmethod` annotation a lot because it allows me to make a custom [`__init__`](https://www.geeksforgeeks.org/__init__-in-python/) method.
 
-## Numbered Lists
+## Images
 
-Now that bulletpoints are out of the way, its time to implement their relative: lists.
+Parsing for images is quite annoying because I need to *detect* and then *parse* the image. I do this using a special [RegEX](https://en.wikipedia.org/wiki/Regular_expression) expression which looks like this on some test data:
 
-<!-- TODO -->
+![Image detection RegEX on a few tests](/img/mdtodocx/regex.png)
+
+This expression was developed to do this in a flavour which is compatible with Python's [`re`](https://docs.python.org/3/library/re.html) module. With this implemented into the detection part of my converter, I can actually parse the label and link for an image.
+
+```python
+class Image:
+    """Image with some optional caption text"""
+
+    def __init__(self, ctx: Context, link: str, caption: Paragraph = None) -> None:
+        self.link = link
+        self.caption = caption
+
+    @staticmethod
+    def _md(ctx: Context, matched: str):
+        splitted = matched.split("](")
+        caption = splitted[0][2:].strip()
+        if caption != "":
+            ctx.figures += 1
+            caption = Paragraph._md(ctx, f"Figure {ctx.figures} - {caption}")
+        else:
+            caption = None
+
+        image = Image()
+        image.ctx = copy(ctx)
+        image.link = splitted[1][:-1].strip()
+        image.caption = caption
+        return image
+```
+
+## The Rest
+
+Time for something fresh, paragraphs 😎
+
+I'll skip over the conversions for the rest of them because I could be writing this blog post for weeks. The markdown elements left to implement are codeblocks, quotes, numbered lists, and images.
+
+# Paragraphs
+
+<!-- TODO: algorithm and that -->
