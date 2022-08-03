@@ -208,7 +208,7 @@ class Image:
 
 Time for something fresh, paragraphs 😎
 
-I'll skip over the conversions for the rest of them because I could be writing this blog post for weeks. The markdown elements left to implement are codeblocks, quotes, numbered lists, and images.
+I'll skip over the conversions for the rest of them because I could be writing this blog post for weeks and its getting repetitive. The markdown elements left to implement are codeblocks, quotes, and numbered lists.
 
 # Paragraphs
 
