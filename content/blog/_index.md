@@ -10,6 +10,8 @@ page_template = "article.html"
 +++
 title = ""
 date = ""
+updated = ""
+draft = true
 [taxonomies]
 categories = [""]
 +++ 

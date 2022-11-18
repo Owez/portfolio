@@ -1,6 +1,8 @@
 +++
 title = "Hacky Parsing"
 date = "2022-11-18"
+updated = "2022-11-18"
+draft = false
 [taxonomies]
 categories = ["Parsers"]
 +++

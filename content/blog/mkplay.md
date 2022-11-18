@@ -1,6 +1,8 @@
 +++
 title = "Playlist Visualiser"
 date = "2022-07-27"
+updated = "2022-11-18"
+draft = false
 [taxonomies]
 categories = ["Design"]
 +++
