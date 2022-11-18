@@ -60,3 +60,12 @@
 h1 {
     margin-top: 3.5rem;
 }
+
+// Codeblocks
+pre[data-lang] {
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    border-radius: 1rem;
+    font-size: 12pt;
+    overflow-x: auto;
+}

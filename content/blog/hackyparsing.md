@@ -1,6 +1,6 @@
 +++
 title = "Hacky Parsing"
-date = "2021-05-21"
+date = "2022-11-18"
 [taxonomies]
 categories = ["Parsers"]
 +++
@@ -47,7 +47,7 @@ In order to design the language properly, I first wanted to have a nice system i
 When I say assembly-like, I mean the methodology whilst having an action and some data attached for some actions, colloquially known as the OPCODE and OPRAND within assembly languages, for example:
 
 <p align="center" style="margin-top:2rem;margin-bottom:2rem;">
-    <img src="/img/hackyparsing/asm.png" alt="Assembly Examples" width="600" />
+    <img src="/img/hackyparsing/Assembly Example.png" alt="Assembly Examples" width="600" />
 </p>
 
 To do this, the entire “IR” is simply a large central enumeration with a single default implementation which allows encoding from whatever is defined within the enumeration into the final binary data.
@@ -133,7 +133,7 @@ As you can see, this is really just a very simple keyword matcher that could als
 Halfway through designing the plaintext language for this project, I decided I would like a system in which users could use “snippets”, allowing reuse of code stored on a server which you yourself could upload to. This helps with scripting as users can import more advanced users files easily, giving automated launchers into programs and such.
 
 <p align="center" style="margin-top:2rem;margin-bottom:2rem;">
-    <img src="/img/hackyparsing/snippet-api.png" alt="Snippet API Diagram" width="375" />
+    <img src="/img/hackyparsing/Snippet API.png" alt="Snippet API Diagram" width="375" />
 </p>
 
 The design of the snippet system is a simple API hosted upon a currently *secret* address, which the plaintext library simply fetches and compiles whilst compiling the rest, like a C pre-processor. This is quite a crude way to do this and potentially (though realistically not) allows exploitation within the plaintext –> binary protocol compiler, which is acknowledged by the user if they use the feature.
@@ -146,7 +146,7 @@ The design of the binary format isn’t really that different from the IR used f
 
 Here’s the full list of potential actions, hopefully you can see how they link into the previously explained plaintext format:
 
-| Denary | Name |
+<!-- | Denary | Name |
 |-|-|
 | `0` | Type character(s) |
 | `1` | Combo type character(s) |
@@ -155,7 +155,11 @@ Here’s the full list of potential actions, hopefully you can see how they link
 | `4` | Loop x times |
 | `5` | End block |
 | `6` | Detonate |
-| `7` | Words per minute |
+| `7` | Words per minute | -->
+
+<p style="margin-top:2rem;margin-bottom:2rem;">
+    <img src="/img/hackyparsing/Assembly%20Instructions.png" alt="Snippet API Diagram" width="325" />
+</p>
 
 An example decoding from this binary format looks like the following:
 
