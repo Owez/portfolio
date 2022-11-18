@@ -8,6 +8,7 @@ body {
     background-color: $bg;
     margin: 0;
     font-family: 'Inter', sans-serif;
+    margin-bottom: 5rem;
 }
 
 // Increased font size
@@ -60,7 +61,7 @@ nav {
 
 // Blurry background
 .blur {
-    background-image: url(/img/blur.png);
+    background-image: url(/img/Blur.png);
     background-repeat: no-repeat;
     background-size: 60% 60%;
 }

@@ -1,3 +1,5 @@
+$semibold: 600;
+
 // Centered main headings
 h1 {
     text-align: center;
@@ -27,9 +29,65 @@ h1 {
     }
 }
 
-
+// Date coloring for article list
 .date {
     color: rgb(169, 169, 169);
     margin-left: 1.5rem;
     text-align: right;
+}
+
+// Latest article card
+#latest {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2.5rem;
+    margin-bottom: 7.5rem;
+
+    // Inner card
+    a {
+        $padding: 2rem;
+        $padding-h-extra: 0.5rem;
+
+        color: inherit;
+        text-decoration: none;
+
+        border-radius: 1rem;
+
+        padding-top: $padding - 0.65rem;
+        padding-bottom: $padding;
+        padding-left: $padding + $padding-h-extra;
+        padding-right: $padding + $padding-h-extra;
+
+        background-color: rgba(255, 255, 255, 0.035);
+        background-image: url(/img/Gradient.png);
+        background-size: cover;
+        background-position: -6.5rem -5rem;
+        background-repeat: no-repeat;
+
+        transition: transform .1s;
+
+        // Hover zoom
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        // Heading text (small)
+        h1 {
+            margin: 0;
+            font-size: 8pt;
+            font-weight: $semibold;
+            text-align: left;
+            text-transform: uppercase;
+            color: #B3B3B3;
+        }
+
+        // Latest text (big)
+        p {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: $semibold;
+        }
+    }
 }

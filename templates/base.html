@@ -7,21 +7,27 @@
     {# Fonts #}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     {# Metadata #}
     <meta charset="utf-8">
+    {# Favicon #}
+    <link rel="icon" type="image/x-icon" href="/img/Favicon.png">
     {# Styling #}
     <link rel="stylesheet" href="/style.css">
     {% block styling %}{% endblock styling %}
     {# Title #}
-    <title>Owen Griffiths{% if page.title %} - {{ page.title }}{% elif section.title %} - {{ section.title }}{% endif %}</title>
+    <title>Owen Griffiths{% if page.title %} - {{ page.title }}{% elif section.title %} - {{ section.title }}{% endif %}
+    </title>
 </head>
 
 <body>
     {# Navbar #}
     <nav>
         <a id="nav-left" class="nav-link" href="/">Owen Griffiths</a>
-        <a id="nav-right" class="nav-link" href="/blog">Blog</a>
+        <div>
+            <a id="nav-right" class="nav-link" href="/#first">About</a>
+            <a id="nav-right" class="nav-link" href="/blog">Blog</a>
+        </div>
     </nav>
     {# Content #}
     {% block content %}{% endblock %}

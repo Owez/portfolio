@@ -5,9 +5,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(8, 8, 22);
-    background: url(/img/hero.png) no-repeat center center fixed;
-    background-size: cover;
 
     // Inner content
     div {
@@ -17,27 +14,33 @@
         // Name
         h1 {
             margin: 0;
-            font-size: 3rem;
+            font-size: calc(2rem + 1.125vw);
         }
 
         // Tagline
         p {
-            font-weight: lighter;
-            font-size: 1.75rem;
+            font-size: calc(0.875rem + 1vw);
             margin-top: 0.75rem;
+            color: #c4c4c4;
         }
     }
 }
 
-// Bottom email
-#email {
-    font-family: monospace;
-    bottom: 0;
-    text-align: center;
-    position: fixed;
-    text-decoration: none;
-    color: inherit;
-    opacity: 0.35;
-    left: calc(50% - 6.75rem);
-    padding: 0.5rem;
+// Content
+.content {
+    $margin: 22.5vw;
+
+    margin-left: $margin;
+    margin-right: $margin;
+
+    // Headings
+    h1 {
+        font-weight: 600;
+        margin-top: 4rem;
+    }
+
+    // Remove bloaty margin for first
+    #first {
+        margin-top: 2rem;
+    }
 }
