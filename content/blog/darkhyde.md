@@ -1,7 +1,7 @@
 +++
 title = "Dark Hyde"
-date = "2022-07-27"
-updated = "2022-11-18"
+date = "2022-11-17"
+updated = "2022-11-17"
 draft = false
 [taxonomies]
 categories = ["Design"]
@@ -74,4 +74,4 @@ Now your dark theme should display without any issues!
 
 This dark theme was made for my old blog and I wanted to make a post about it for the new version of my blog your probably looking at now. Right now the theme is out of development but I hope to redo it sometime in the future.
 
-The repository for my old blog (and therefore the theme) is on GitHub [here](https://github.com/Owez/portfolio/tree/old). Please report any issues you find by adding a new issue or just [contacting](/contact) me directly!
+The repository for my old blog (and therefore the theme) is on GitHub [here](https://github.com/Owez/portfolio/tree/old). Please report any issues you find by adding a new issue or just [contacting](/#about) me directly!
