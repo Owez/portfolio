@@ -1,6 +1,6 @@
 +++
 title = "Markdown to Word"
-date = "2022-07-21"
+date = "2022-08-20"
 [taxonomies]
 categories = ["Parsers"]
 +++
@@ -206,10 +206,23 @@ class Image:
 
 ## The Rest
 
-Time for something fresh, paragraphs 😎
+Time for something fresh, paragraphs :)
 
 I'll skip over the conversions for the rest of them because I could be writing this blog post for weeks and its getting repetitive. The markdown elements left to implement are codeblocks, quotes, and numbered lists.
 
 # Paragraphs
+
+Paragraphs are probably the most important part of this entire system. They might look simple on the surface, but it contains the most complex algorithm of the whole system. Paragraphs need to have these capabilities:
+
+- Being text
+- Having boldness
+- Having italics
+- Having underlines
+- Having a mix of all of the above
+- Links, both inline and a whole url
+
+Word documents understand these features something called *character styles* which define a small style in some text. These styles can't overlap inside of the format because of the way XML works, but markdown does overlap them.
+
+Because of this, the converter needs an algorithm to keep track of the state of every single character – is it bold? is it italic? is it underlined?
 
 <!-- TODO: algorithm and that -->
