@@ -51,9 +51,9 @@ for (const element of elements) {
 
     // Format date and add a recent indicator if it's new
     let formatted = date(element_date);
-    // if (daysBetween(current_date, element_date) < 60) {
-    //     formatted = `✨ ${formatted}`
-    // }
+    if (daysBetween(current_date, element_date) < 60) {
+        formatted = `🌀 ${formatted}`
+    }
 
     // Set formatted date
     element.textContent = formatted
