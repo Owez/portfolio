@@ -74,4 +74,4 @@ Now your dark theme should display without any issues!
 
 This dark theme was made for my old blog and I wanted to make a post about it for the new version of my blog your probably looking at now. Right now the theme is out of development but I hope to redo it sometime in the future.
 
-The repository for my old blog (and therefore the theme) is on GitHub [here](https://github.com/Owez/portfolio/tree/old). Please report any issues you find by adding a new issue or just [contacting](/#about) me directly!
+The repository for my old blog (and therefore the theme) can be downloaded and tried through the archive [here](https://1drv.ms/u/s!Avsd4vOsPRsNkVNTwupz69wmrtoE?e=nUSbtn). Sorry it's not on GitHub, the new portfolio has supplanted it.
