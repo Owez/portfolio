@@ -9,7 +9,7 @@ build_search_index = false
 
 # Taxonomies
 taxonomies = [
-    { name = "categories", feed = true},
+    { name = "categories", feed = true, render = false},
 ]
 
 [markdown]
