@@ -1,6 +1,9 @@
 // Colours
 $bg: rgb(8, 8, 22);
 
+// Sizes 
+$nav-space: calc(2rem + 1vw);
+
 // Body
 body {
     color: rgb(217, 217, 217);
@@ -33,14 +36,23 @@ a {
     color: rgb(59, 118, 202);
 }
 
+
 // Space between the screen and the left of navbar
 #nav-left {
-    margin-left: 3rem;
+    margin-left: $nav-space;
+
+    // Cut my name off if it's too crampt
+    @media screen and (max-width: 400px) {
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 0;
+    }
 }
 
 // Space between the screen and the right of navbar
 #nav-right {
-    margin-right: 3rem;
+    margin-right: $nav-space;
 }
 
 // Navbar
@@ -69,5 +81,6 @@ nav {
 img {
     max-width: 100%;
     height: auto;
-    width: auto\9; /* ie8 */
+    width: auto\9;
+    /* ie8 */
 }
