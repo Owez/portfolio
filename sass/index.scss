@@ -1,4 +1,4 @@
-$tagline-colour:#c4c4c4;
+$tagline-colour: #c4c4c4;
 
 // Central hero content
 #hero {
@@ -39,7 +39,7 @@ $tagline-colour:#c4c4c4;
     background-position: top center;
 
     nav {
-        background-color: rgba(8,8,22,0.5);
+        background-color: rgba(8, 8, 22, 0.8);
     }
 }
 
@@ -48,6 +48,18 @@ $tagline-colour:#c4c4c4;
     height: 5rem;
     text-align: center;
     color: $tagline-colour;
+    animation: action 1s infinite alternate;
+}
+
+// Up-down animation keyframes for arrow
+@keyframes action {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-10px);
+    }
 }
 
 // Content
