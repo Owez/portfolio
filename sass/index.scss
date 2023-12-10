@@ -39,7 +39,8 @@ $tagline-colour: #c4c4c4;
     background-position: top center;
 
     nav {
-        background-color: rgba(8, 8, 22, 0.8);
+        background: rgb(8,8,22);
+        background: linear-gradient(180deg, rgba(8,8,22,1) 0%, rgba(0,0,0,0) 100%);
     }
 }
 
@@ -48,7 +49,7 @@ $tagline-colour: #c4c4c4;
     height: 5rem;
     text-align: center;
     color: $tagline-colour;
-    animation: action 1s infinite alternate;
+    animation: action 1.25s infinite alternate;
 }
 
 // Up-down animation keyframes for arrow
@@ -58,7 +59,7 @@ $tagline-colour: #c4c4c4;
     }
 
     100% {
-        transform: translateY(-10px);
+        transform: translateY(-7.5px);
     }
 }
 

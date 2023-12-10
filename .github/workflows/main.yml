@@ -6,14 +6,15 @@ on:
    - master
 
 jobs:
-  build:
+  build_and_deploy:
     name: Publish site
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
     steps:
-    - name: Checkout master
-      uses: actions/checkout@v3.0.0
-    - name: Build and deploy
-      uses: shalzz/zola-deploy-action@v0.16.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
+      - name: Checkout master
+        uses: actions/checkout@v4
+      - name: Build and deploy
+        uses: shalzz/zola-deploy-action@v0.17.2-1
+        env:
+          PAGES_BRANCH: gh-pages
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
