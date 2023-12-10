@@ -35,7 +35,7 @@
     font-size: 3.75rem;
     margin: 0;
     margin-top: -0.5rem;
-    margin-bottom:-0.5rem;
+    margin-bottom: -0.5rem;
     font-weight: bold;
     line-height: 4rem;
 }
@@ -46,6 +46,15 @@
 
     margin-left: $margin;
     margin-right: $margin;
+
+    // Shrink text margins on phones
+    @media screen and (max-width: 500px) {
+        $margin: 10vw;
+
+        margin-left: $margin;
+        margin-right: $margin;
+        text-align: left;
+    }
 }
 
 // Small statuses in splashscreen under title
