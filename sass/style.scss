@@ -45,16 +45,6 @@ a {
 // Space between the screen and the right of navbar
 #nav-right {
     margin-right: $nav-space;
-
-    // Cut optional content off if it's too crampt
-    &.optional {
-        @media screen and (max-width: 400px) {
-            text-indent: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            width: 0;
-        }
-    }
 }
 
 // Navbar
