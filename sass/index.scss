@@ -1,3 +1,5 @@
+$tagline-colour:#c4c4c4;
+
 // Central hero content
 #hero {
     height: calc(100vh - 75px - 4rem); // minus nav and arrow
@@ -15,7 +17,7 @@
             $h-space: 1.5rem;
 
             margin: 0;
-            font-size: calc(2rem + 1.125vw);
+            font-size: calc(2.25rem + 1.125vw);
             margin-left: $h-space;
             margin-right: $h-space;
         }
@@ -24,8 +26,20 @@
         p {
             font-size: calc(0.875rem + 1vw);
             margin-top: 0.75rem;
-            color: #c4c4c4;
+            color: $tagline-colour;
         }
+    }
+}
+
+// Wrapper around navbar and hero
+#hero-outer {
+    background-image: url(/img/Home.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+
+    nav {
+        background-color: rgba(8,8,22,0.5);
     }
 }
 
@@ -33,6 +47,7 @@
 #hero-arrow {
     height: 5rem;
     text-align: center;
+    color: $tagline-colour;
 }
 
 // Content
@@ -41,7 +56,7 @@
 
     margin-left: $margin;
     margin-right: $margin;
-    margin-bottom: 7rem;
+    margin-bottom: 6rem;
 
     // Headings
     h1 {
