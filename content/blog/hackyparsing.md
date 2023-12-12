@@ -40,8 +40,6 @@ end
 detonate
 ```
 
-Don’t worry about the `detonate` part, its just a killer feature.
-
 # Designing the IR
 
 In order to design the language properly, I first wanted to have a nice system in place in order to act as a “middle man” for all encoding/decoding to and from the eventual binary format; as a sort of anchor for the limits of the language, and so force me to write a simpler style of parsers: assembly-like.
