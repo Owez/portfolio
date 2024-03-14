@@ -40,8 +40,6 @@ Once all of the issues where fixed and some polish was added to the whole thing,
 - [psychedelia.](https://www.youtube.com/watch?v=annp92OPZgQ)
 - [one more time.](https://www.youtube.com/watch?v=Sl3XgtKYq4E)
 
-Now all that I really need to do to get my playlist video empire off the ground is get a better taste in music 😎
-
 # Conclusion
 
 The script, now called "mkplay", is quite easy to use and can be seen/downloaded on it's GitHub repository:

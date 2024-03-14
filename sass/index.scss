@@ -33,15 +33,9 @@ $tagline-colour: #c4c4c4;
 
 // Wrapper around navbar and hero
 #hero-outer {
-    background-image: url(/img/Home.png);
-    background-size: cover;
+    background-image: url(/img/Blur.png);
     background-repeat: no-repeat;
-    background-position: top center;
-
-    nav {
-        background: rgb(8,8,22);
-        background: linear-gradient(180deg, rgba(8,8,22,1) 0%, rgba(0,0,0,0.5) 100%);
-    }
+    background-size: 60% 60%;
 }
 
 // Arrow below hero
