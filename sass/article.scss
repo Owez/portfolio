@@ -1,3 +1,14 @@
+// Progress bar
+.progress {
+    background-color: #272c5b;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    z-index: 1000;
+}
+
 // Category list
 #categories {
     display: flex;
