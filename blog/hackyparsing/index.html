@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html>
+
+<head>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    
+    <link rel="icon" type="image/x-icon" href="/img/Favicon.png">
+    
+    <link rel="stylesheet" href="/style.css">
+    
+<link rel="stylesheet" href="/article.css">
+
+    
+    <title>Owen Griffiths - Hacky Parsing
+    </title>
+</head>
+
+<body>
+    
+    
+
+<div class="progress" id="progress"></div>
+
+<nav>
+    <!-- NOTE: navbar should ideally be a component -->
+    <a id="nav-left" class="nav-link" href="/">Owen Griffiths</a>
+    <div>
+        <a id="nav-right" class="nav-link" href="/blog">Blog</a>
+    </div>
+</nav>
+
+<div id="splash" class="blur">
+    <div>
+        
+        <div id="categories">
+            
+            
+            
+            
+            <a href="/blog">Parsing</a>
+            
+            
+            
+        </div>
+        
+        <p id="title">Hacky Parsing</p>
+        
+        <div id="statuses">
+            
+            <p class="date">2022-11-18</p>
+        </div>
+    </div>
+</div>
+
+<div id="page">
+    <h1 id="introduction">Introduction</h1>
+<p>This is a bit of an unorthodox post underlining some of my (limited) history whilst creating parsers. One of these parsers, taken from my most recent project, is a 2-stage ordeal:</p>
+<ol>
+<li>Converting from a plaintext language do an intermediate programmatic representation</li>
+<li>Converting from the IR to binary data</li>
+</ol>
+<p>The use of this parser is to essentially make an easy-to-write language which eventually ends up controlling a microcontroller.</p>
+<p>Another limit to this parser is the quickness of development – partially to provide me with a code golf-like or hackathon challenge whilst writing, but also because I have set myself some loose deadlines for this part of the project to be completed.</p>
+<h1 id="completed-syntax">Completed Syntax</h1>
+<p>Before moving into the depths of design considerations whilst writing these parser(s), here is an example snippet of the completed plaintext language:</p>
+<pre data-lang="c" style="background-color:#2b2c2f;color:#cccece;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#5f6364;">// intro text
+</span><span>type </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">Hello world!</span><span style="color:#5fb3b3;">&quot;</span><span> then ENTER
+</span><span>wait </span><span style="color:#f99157;">2d
+</span><span>
+</span><span style="color:#5f6364;">// final loop
+</span><span>type F5
+</span><span>loop 5
+</span><span>    loop 20
+</span><span>        type </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">I&#39;m feeling loopy..</span><span style="color:#5fb3b3;">&quot;
+</span><span>    end
+</span><span>    
+</span><span>    type CTRL and F5
+</span><span style="color:#6699cc;">end
+</span><span>
+</span><span>detonate
+</span></code></pre>
+<h1 id="designing-the-ir">Designing the IR</h1>
+<p>In order to design the language properly, I first wanted to have a nice system in place in order to act as a “middle man” for all encoding/decoding to and from the eventual binary format; as a sort of anchor for the limits of the language, and so force me to write a simpler style of parsers: assembly-like.</p>
+<p>When I say assembly-like, I mean the methodology whilst having an action and some data attached for some actions, colloquially known as the OPCODE and OPRAND within assembly languages, for example:</p>
+<p align="center" style="margin-top:2rem;margin-bottom:2rem;">
+    <img src="/img/hackyparsing/Assembly Example.png" alt="Assembly Examples" width="600" />
+</p>
+<p>To do this, the entire “IR” is simply a large central enumeration with a single default implementation which allows encoding from whatever is defined within the enumeration into the final binary data.</p>
+<p>This step of IR –&gt; Binary is a central aspect for this project which I wanted to focus on. The magic of using this unified method is that many kinds of encoding (from different languages) can be used, and even different flavours of binary if potentially needed 😄</p>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<p>A small side point: It can be said that this 2-stage method of parsing is slower then directly from code to binary; but this specific parser isn’t speed-orientated, and the tradeoff is something that is much easier to standardize for the future and work with in my opinion.</p>
+<h1 id="designing-the-language">Designing the language</h1>
+<p>Built on top of the <a href="https://ogriffiths.com/blog/hackyparsing/#designing-the-ir">previously mentioned</a> intermediate representation is the plaintext language, used for the easy inputting of instructions which are then eventually compiled down into the final binary.</p>
+<h2 id="design-goals">Design goals</h2>
+<p>I wanted this language to fulfill 2 main criteria:</p>
+<ol>
+<li>Easy to write for the user</li>
+<li>Simple to parse</li>
+</ol>
+<p>The final syntax is shown in a couple sections <a href="https://ogriffiths.com/blog/hackyparsing/#completed-syntax">above</a> this one and as you may be able to see, it is newline separated and is basically just an abstraction for the assembly-like instructions used.</p>
+<table><thead><tr><th>Plaintext</th><th>Action binary</th></tr></thead><tbody>
+<tr><td><code>end</code></td><td><code>00000101</code></td></tr>
+<tr><td><code>wait 2s</code></td><td><code>00000010 aaaaaaaa aaaaaaaa aaaaaaaa aaaaaaaa</code></td></tr>
+<tr><td><code>loop forever</code></td><td><code>00000011</code></td></tr>
+</tbody></table>
+<p>The inspirations for the syntax was partially Python/LUA and partially just guesswork to create a resulting pseudocode-like language which beginners can (hopefully) understand!</p>
+<h2 id="stripping-action-data">Stripping action + data</h2>
+<p>Inside of the parser, it loops over all the newlines and simply trims away any whitespace on either side of the actual text. Once this has happened, it splits the action from all of the data at the first space – this is the code which does so:</p>
+<pre data-lang="rust" style="background-color:#2b2c2f;color:#cccece;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#c594c5;">fn </span><span style="color:#6699cc;">action_data</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">input</span><span style="color:#5fb3b3;">: &amp;</span><span style="color:#c594c5;">str</span><span style="color:#5fb3b3;">) -&gt; (&amp;</span><span style="color:#c594c5;">str</span><span>, </span><span style="color:#5fb3b3;">&amp;</span><span style="color:#c594c5;">str</span><span style="color:#5fb3b3;">) {
+</span><span>    </span><span style="color:#c594c5;">match</span><span> input</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">trim</span><span style="color:#5fb3b3;">().</span><span style="color:#6699cc;">split_once</span><span style="color:#5fb3b3;">(&#39; &#39;) {
+</span><span>        </span><span style="color:#fac863;">Some</span><span style="color:#5fb3b3;">((</span><span>action</span><span style="color:#5fb3b3;">,</span><span> data</span><span style="color:#5fb3b3;">)) =&gt; </span><span style="color:#6699cc;">do_</span><span style="color:#5fb3b3;">(</span><span>action</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">trim</span><span style="color:#5fb3b3;">(),</span><span> data</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">trim</span><span style="color:#5fb3b3;">()),
+</span><span>        </span><span style="color:#fac863;">None </span><span style="color:#5fb3b3;">=&gt; </span><span style="color:#6699cc;">do_</span><span style="color:#5fb3b3;">(</span><span>input</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">trim</span><span style="color:#5fb3b3;">(), &quot;&quot;),
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+</span></code></pre>
+<p>If you can’t understand much Rust, here’s approximately the same code in Python:</p>
+<pre data-lang="python" style="background-color:#2b2c2f;color:#cccece;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#c594c5;">def </span><span style="color:#6699cc;">action_data</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">input</span><span style="color:#5fb3b3;">: </span><span style="color:#fac863;">str</span><span style="color:#5fb3b3;">) -&gt; (</span><span style="color:#fac863;">str</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">str</span><span style="color:#5fb3b3;">):
+</span><span>    splitted </span><span style="color:#5fb3b3;">= </span><span style="color:#6699cc;">input</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">strip</span><span style="color:#5fb3b3;">().</span><span style="color:#6699cc;">split</span><span style="color:#5fb3b3;">(&quot; &quot;)
+</span><span>    action </span><span style="color:#5fb3b3;">= </span><span>splitted</span><span style="color:#5fb3b3;">[</span><span style="color:#f99157;">0</span><span style="color:#5fb3b3;">].</span><span style="color:#6699cc;">strip</span><span style="color:#5fb3b3;">()
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">if </span><span style="color:#6699cc;">splitted</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">len</span><span style="color:#5fb3b3;">() == </span><span style="color:#f99157;">1</span><span style="color:#5fb3b3;">:
+</span><span>        </span><span style="color:#c594c5;">return </span><span style="color:#5fb3b3;">(</span><span>action</span><span style="color:#5fb3b3;">, &quot;&quot;)
+</span><span>    
+</span><span>    </span><span style="color:#c594c5;">return </span><span style="color:#5fb3b3;">(</span><span>action</span><span style="color:#5fb3b3;">, </span><span>splitted</span><span style="color:#5fb3b3;">[</span><span style="color:#f99157;">1</span><span style="color:#5fb3b3;">:])
+</span></code></pre>
+<h2 id="matching">Matching</h2>
+<p>Once stripped and a loop is in session, the parser has to match the action to the ones stored in the program. The vast majority of plaintext actions used line up with the IR version of the actions. There is one notable exception to this law with snippets, but that’s for later!</p>
+<p>Here’s an excerpt for the main matching subprogram from the parser:</p>
+<pre data-lang="rust" style="background-color:#2b2c2f;color:#cccece;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#c594c5;">for</span><span> action </span><span style="color:#5fb3b3;">in</span><span> the_stuff </span><span style="color:#5fb3b3;">{
+</span><span>    </span><span style="color:#c594c5;">match</span><span> action </span><span style="color:#5fb3b3;">{
+</span><span>        </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">snippet</span><span style="color:#5fb3b3;">&quot; =&gt; </span><span style="color:#6699cc;">do_snippet</span><span style="color:#5fb3b3;">(),
+</span><span>        </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">type</span><span style="color:#5fb3b3;">&quot; =&gt; </span><span style="color:#6699cc;">do_type</span><span style="color:#5fb3b3;">(),
+</span><span>        </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">wait</span><span style="color:#5fb3b3;">&quot; =&gt; </span><span style="color:#6699cc;">do_wait</span><span style="color:#5fb3b3;">(),
+</span><span>        </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">loop</span><span style="color:#5fb3b3;">&quot; =&gt; </span><span style="color:#6699cc;">do_loop</span><span style="color:#5fb3b3;">(),
+</span><span>        </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">end</span><span style="color:#5fb3b3;">&quot; =&gt; </span><span style="color:#6699cc;">do_end</span><span style="color:#5fb3b3;">(),
+</span><span>        </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">detonate</span><span style="color:#5fb3b3;">&quot; =&gt; </span><span style="color:#6699cc;">do_detonate</span><span style="color:#5fb3b3;">(),
+</span><span>        </span><span style="color:#5fb3b3;">&quot;&quot; =&gt; </span><span style="color:#c594c5;">continue</span><span style="color:#5fb3b3;">,
+</span><span>        unknown </span><span style="color:#5fb3b3;">=&gt; </span><span>panic!</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">error here</span><span style="color:#5fb3b3;">&quot;)
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+</span></code></pre>
+<p>As you can see, this is really just a very simple keyword matcher that could also be done with a long set of if statements.</p>
+<h2 id="snippets">Snippets</h2>
+<p>Halfway through designing the plaintext language for this project, I decided I would like a system in which users could use “snippets”, allowing reuse of code stored on a server which you yourself could upload to. This helps with scripting as users can import more advanced users files easily, giving automated launchers into programs and such.</p>
+<p align="center" style="margin-top:2rem;margin-bottom:2rem;">
+    <img src="/img/hackyparsing/Snippet API.png" alt="Snippet API Diagram" width="375" />
+</p>
+<p>The design of the snippet system is a simple API hosted upon a currently <em>secret</em> address, which the plaintext library simply fetches and compiles whilst compiling the rest, like a C pre-processor. This is quite a crude way to do this and potentially (though realistically not) allows exploitation within the plaintext –&gt; binary protocol compiler, which is acknowledged by the user if they use the feature.</p>
+<p>To do this, a lightweight http library for Rust called <code>ureq</code> was used. This is a nice high-level library which is nice to work with for this purpose, but binding to <a href="https://curl.se/">CURL</a> may be added shortly instead for less dependencies – even though this is made to be used as a full-powered desktop section of this project.</p>
+<h1 id="designing-the-binary">Designing the binary</h1>
+<p>The design of the binary format isn’t really that different from the IR used for this project, simply being aliases for it, with all abstract types (such as integers) being formatted into binary little endian format.</p>
+<p>Here’s the full list of potential actions, hopefully you can see how they link into the previously explained plaintext format:</p>
+<!-- | Denary | Name |
+|-|-|
+| `0` | Type character(s) |
+| `1` | Combo type character(s) |
+| `2` | Wait x ms |
+| `3` | Loop forever |
+| `4` | Loop x times |
+| `5` | End block |
+| `6` | Detonate |
+| `7` | Words per minute | -->
+<p style="margin-top:2rem;margin-bottom:2rem;">
+    <img src="/img/hackyparsing/Assembly%20Instructions.png" alt="Snippet API Diagram" width="325" />
+</p>
+<p>An example decoding from this binary format looks like the following:</p>
+<pre data-lang="rust" style="background-color:#2b2c2f;color:#cccece;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#c594c5;">use </span><span>sprawl_format</span><span style="color:#5fb3b3;">::</span><span>decode</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">fn </span><span style="color:#6699cc;">main</span><span style="color:#5fb3b3;">() {
+</span><span>    </span><span style="color:#c594c5;">let</span><span> binary </span><span style="color:#5fb3b3;">= </span><span>vec!</span><span style="color:#5fb3b3;">[</span><span style="color:#f99157;">0</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">0</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">1</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">0</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">0</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">0</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">2</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">192</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">101</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">82</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">0</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">3</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">2</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">232</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">3</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">0</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">0</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">5</span><span style="color:#5fb3b3;">];
+</span><span>    </span><span style="color:#c594c5;">let</span><span> decoded </span><span style="color:#5fb3b3;">= </span><span style="color:#6699cc;">decode</span><span style="color:#5fb3b3;">(</span><span>binary</span><span style="color:#5fb3b3;">).</span><span style="color:#6699cc;">unwrap</span><span style="color:#5fb3b3;">();
+</span><span>
+</span><span>    println!</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">Decoded representation: {:?}</span><span style="color:#5fb3b3;">&quot;,</span><span> decoded</span><span style="color:#5fb3b3;">);
+</span><span style="color:#5fb3b3;">}
+</span></code></pre>
+<p>Where the numbers in the <a href="https://doc.rust-lang.org/std/vec/struct.Vec.html"><code>vec![]</code></a> part is the finished binary data in denary form, as Rust formats it like so by default.</p>
+<p>The first 6 bytes (numbers) in this vector represent the protocol version and is included at the start of every transmission to block any versions higher then this. It’s encoded in 2 little endian bytes per number and follows the broader versioning for this whole project :)</p>
+<h1 id="final-thoughts">Final thoughts</h1>
+<p>Overall, this was a fun project that took a while to make in my spare time. There are definitely better (as in faster) ways to implement this system from what I have done programmatically, but speed doesn’t purely matter as speed in production will be capped to a limit most likely.</p>
+<p>Many of the design decisions from this project was spurred on from the requirement of a <a href="https://docs.rust-embedded.org/book/intro/no-std.html"><code>no_std</code></a> environment within Rust, which is why this language is essentially assembly disguised as a high-level language. For my next project, I am attempting to implement a parser for a simplified version of markdown using vaguely the same style, but with many changes when it comes to the abstract syntax tree.</p>
+<p>Thanks for reading and I hope you’ve learnt a thing or two :)</p>
+
+</div>
+
+    
+    
+<script src="/js/fancydate.js"></script>
+<script src="/js/progressbar.js"></script>
+
+</body>
+
+</html>

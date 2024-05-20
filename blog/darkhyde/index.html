@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html>
+
+<head>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    
+    <link rel="icon" type="image/x-icon" href="/img/Favicon.png">
+    
+    <link rel="stylesheet" href="/style.css">
+    
+<link rel="stylesheet" href="/article.css">
+
+    
+    <title>Owen Griffiths - Dark Hyde
+    </title>
+</head>
+
+<body>
+    
+    
+
+<div class="progress" id="progress"></div>
+
+<nav>
+    <!-- NOTE: navbar should ideally be a component -->
+    <a id="nav-left" class="nav-link" href="/">Owen Griffiths</a>
+    <div>
+        <a id="nav-right" class="nav-link" href="/blog">Blog</a>
+    </div>
+</nav>
+
+<div id="splash" class="blur">
+    <div>
+        
+        <div id="categories">
+            
+            
+            
+            
+            <a href="/blog">Design</a>
+            
+            
+            
+        </div>
+        
+        <p id="title">Dark Hyde</p>
+        
+        <div id="statuses">
+            
+            <p class="date">2022-11-17</p>
+        </div>
+    </div>
+</div>
+
+<div id="page">
+    <h1 id="introduction">Introduction</h1>
+<p>Around two years ago I was setting up my first blog website and like many people, I used Jekyll. It's a great tool for generating static websites like blogs, and it worked great with GitHub pages.</p>
+<p>The problem I always had with it was there was never any good dark themes. The best theme I found for Jekyll was one called Hyde but it was only in light mode. So to fix the issue, I created <strong>Dark Hyde</strong>.</p>
+<p><img src="/img/darkhyde/eg.png" alt="Example of Dark Hyde" /></p>
+<h1 id="installation">Installation</h1>
+<p>This Jekyll theme is used a bit differently to others because it builds on top of the original Hyde theme, which is in turn built on Poole. To use Dark Hyde, go through the normal install process of Hyde. Once you've installed everything like normal, make a new CSS file called <code>darkhyde.css</code> and add the following into it:</p>
+<pre data-lang="css" style="background-color:#2b2c2f;color:#cccece;" class="language-css "><code class="language-css" data-lang="css"><span style="color:#5f6364;">/* Dark Hyde theme */
+</span><span>
+</span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">content </span><span style="color:#5fb3b3;">{
+</span><span>  </span><span style="color:#fac863;">background-color</span><span style="color:#5fb3b3;">: #2c2c2c </span><span style="color:#c594c5;">!important</span><span style="color:#5fb3b3;">;
+</span><span>  </span><span style="color:#fac863;">color</span><span style="color:#5fb3b3;">: </span><span style="color:#6699cc;">rgb</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">214</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">214</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">214</span><span style="color:#5fb3b3;">);
+</span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">highlight</span><span style="color:#5fb3b3;">, .</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#eb606b;">code</span><span style="color:#5fb3b3;">, .</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#eb606b;">pre </span><span style="color:#5fb3b3;">{
+</span><span>  </span><span style="color:#fac863;">background-color</span><span style="color:#5fb3b3;">: #202020;
+</span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#eb606b;">a</span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">older</span><span style="color:#5fb3b3;">, .</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#eb606b;">a</span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">newer </span><span style="color:#5fb3b3;">{
+</span><span>  </span><span style="color:#fac863;">color</span><span style="color:#5fb3b3;">: </span><span style="color:#f99157;">unset</span><span style="color:#5fb3b3;">;
+</span><span>  </span><span style="color:#fac863;">font-weight</span><span style="color:#5fb3b3;">: </span><span style="color:#f99157;">bold</span><span style="color:#5fb3b3;">;
+</span><span>  </span><span style="color:#fac863;">text-decoration</span><span style="color:#5fb3b3;">: </span><span style="color:#f99157;">underline</span><span style="color:#5fb3b3;">;
+</span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">content </span><span style="color:#eb606b;">a </span><span style="color:#5fb3b3;">{
+</span><span>  </span><span style="color:#fac863;">font-style</span><span style="color:#5fb3b3;">: </span><span style="color:#f99157;">italic</span><span style="color:#5fb3b3;">;
+</span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">post-title </span><span style="color:#eb606b;">a </span><span style="color:#5fb3b3;">{
+</span><span>  </span><span style="color:#fac863;">font-style</span><span style="color:#5fb3b3;">: </span><span style="color:#f99157;">unset</span><span style="color:#5fb3b3;">;
+</span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#eb606b;">blockquote </span><span style="color:#5fb3b3;">{
+</span><span>  </span><span style="color:#fac863;">border-left</span><span style="color:#5fb3b3;">: .</span><span style="color:#f99157;">25rem solid </span><span style="color:#5fb3b3;">#5c5c5c;
+</span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#eb606b;">h1</span><span style="color:#5fb3b3;">, .</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#eb606b;">h2</span><span style="color:#5fb3b3;">, .</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#eb606b;">h3</span><span style="color:#5fb3b3;">, .</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#eb606b;">h4</span><span style="color:#5fb3b3;">, .</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#eb606b;">h5</span><span style="color:#5fb3b3;">,
+</span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#eb606b;">h6</span><span style="color:#5fb3b3;">, .</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#eb606b;">li a</span><span style="color:#5fb3b3;">:</span><span>hover</span><span style="color:#5fb3b3;">, .</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">post-title </span><span style="color:#eb606b;">a</span><span style="color:#5fb3b3;">,
+</span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#eb606b;">strong </span><span style="color:#5fb3b3;">{
+</span><span>  </span><span style="color:#fac863;">color</span><span style="color:#5fb3b3;">: #ffffff </span><span style="color:#c594c5;">!important</span><span style="color:#5fb3b3;">;
+</span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span style="color:#5fb3b3;">.</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#eb606b;">tbody tr</span><span style="color:#5fb3b3;">:</span><span style="color:#6699cc;">nth-child</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">2n+1</span><span style="color:#5fb3b3;">) </span><span style="color:#eb606b;">td</span><span style="color:#5fb3b3;">, .</span><span style="color:#bb80b3;">theme-dark </span><span style="color:#eb606b;">tbody tr</span><span style="color:#5fb3b3;">:</span><span style="color:#6699cc;">nth-child</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">2n+1</span><span style="color:#5fb3b3;">) </span><span style="color:#eb606b;">th </span><span style="color:#5fb3b3;">{
+</span><span>  </span><span style="color:#fac863;">background-color</span><span style="color:#5fb3b3;">: #333333 </span><span style="color:#c594c5;">!important</span><span style="color:#5fb3b3;">;
+</span><span style="color:#5fb3b3;">}
+</span></code></pre>
+<p>The hard part is now over, all you have to do is go into your <code>default.html</code> file and add the new dark theme class to the body element of HTML like so:</p>
+<pre data-lang="html" style="background-color:#2b2c2f;color:#cccece;" class="language-html "><code class="language-html" data-lang="html"><span style="color:#5fb3b3;">&lt;</span><span style="color:#eb606b;">body </span><span style="color:#bb80b3;">class</span><span style="color:#5fb3b3;">=&quot;</span><span style="color:#99c794;">theme-dark</span><span style="color:#5fb3b3;">&quot;&gt;
+</span><span>    </span><span style="color:#5f6364;">&lt;!-- ... --&gt;
+</span><span style="color:#5fb3b3;">&lt;/</span><span style="color:#eb606b;">body</span><span style="color:#5fb3b3;">&gt;
+</span></code></pre>
+<p>Now your dark theme should display without any issues!</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>This dark theme was made for my old blog and I wanted to make a post about it for the new version of my blog your probably looking at now. Right now the theme is out of development but I hope to redo it sometime in the future.</p>
+<p>The repository for my old blog (and therefore the theme) can be downloaded and tried through the archive <a href="https://1drv.ms/u/s!Avsd4vOsPRsNkVNTwupz69wmrtoE?e=nUSbtn">here</a>. Sorry it's not on GitHub, the new portfolio has supplanted it.</p>
+
+</div>
+
+    
+    
+<script src="/js/fancydate.js"></script>
+<script src="/js/progressbar.js"></script>
+
+</body>
+
+</html>

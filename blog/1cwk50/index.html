@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html>
+
+<head>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    
+    <link rel="icon" type="image/x-icon" href="/img/Favicon.png">
+    
+    <link rel="stylesheet" href="/style.css">
+    
+<link rel="stylesheet" href="/article.css">
+
+    
+    <title>Owen Griffiths - Hitchhikers&#x27;s Guide to HotelBooker
+    </title>
+</head>
+
+<body>
+    
+    
+
+<div class="progress" id="progress"></div>
+
+<nav>
+    <!-- NOTE: navbar should ideally be a component -->
+    <a id="nav-left" class="nav-link" href="/">Owen Griffiths</a>
+    <div>
+        <a id="nav-right" class="nav-link" href="/blog">Blog</a>
+    </div>
+</nav>
+
+<div id="splash" class="blur">
+    <div>
+        
+        <div id="categories">
+            
+            
+            
+            
+            <a href="/blog">University</a>
+            
+            
+            
+        </div>
+        
+        <p id="title">Hitchhikers&#x27;s Guide to HotelBooker</p>
+        
+        <div id="statuses">
+            
+            <p class="date">2024-05-20</p>
+        </div>
+    </div>
+</div>
+
+<div id="page">
+    <h1 id="construction-notice">🚧 Notice</h1>
+<p>This article is a blog-style university assignment, and so may not follow what I'd typically do. With that being said, enjoy reading!</p>
+<h1 id="part-i-introduction">Part I: Introduction</h1>
+<h2 id="prologue">Prologue</h2>
+<p>A month or two ago I was given an assignment to do as part of my university coursework – it was to be a Java-based desktop app to help a user do something.</p>
+<p>This is my development log.</p>
+<p align="center" style="margin-top:2rem;margin-bottom:2rem;">
+    <img src="/img/1cwk50/newhotel.png" alt="" width="550" />
+</p>
+<p>I spent the first week thinking about what to make – the original brief states that we must have a project with <em>two</em> feature-sets and debugging capabilities, which I mainly take to mean <a href="https://en.wikipedia.org/wiki/Unit_testing">unit testing</a>. The project that we could create had a wide scope; as long as it passes by our tutors, it can be made.</p>
+<p>With all of this in mind, I chose to make a hotel booking application to aid a few friendly multinational hotel conglomerates who <em>definitely</em> know about this project 👐</p>
+<h2 id="setting-up">Setting up</h2>
+<p>To set up the development environment for this project, I installed the <a href="https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack">Java plugin</a> into <a href="https://code.visualstudio.com/">VSCode</a>, my typical development environment.</p>
+<p align="center" style="margin-top:2rem;margin-bottom:2rem;">
+    <img src="/img/1cwk50/Pasted image 20240513170254.png" alt="" />
+</p>
+<p>With the extension pack installed, I initialised <a href="https://git-scm.com/">git</a>, the most popular <a href="https://en.wikipedia.org/wiki/Version_control">version control</a> system, into the project. I am using version control because it helps me track/prove my progress, revert bad changes into the program, and because I'm already used to using it in my workflow:</p>
+<pre data-lang="shell" style="background-color:#2b2c2f;color:#cccece;" class="language-shell "><code class="language-shell" data-lang="shell"><span>$ git init
+</span></code></pre>
+<h2 id="project-structure">Project Structure</h2>
+<p>A booking system has many facets to managing entities coming in/out of the system. One of my main skillsets outside of university is web development, and I thought HotelBooker would be a good platform to emulate some common <a href="https://en.wikipedia.org/wiki/Web_API">API</a> functionality, even if it's an offline application. </p>
+<p>Users should be able to enter the application and use it to make decisions of how/who/what hotels to book. For this, I chose to create a structured hierarchy of actions &amp; decisions which users can make during their <a href="https://www.nngroup.com/articles/user-journeys-vs-user-flows/">flow</a>, dating all the way back to the planning phase of this system 🏗️</p>
+<p>The original flow for the application looked like this:</p>
+<p align="center" style="margin-top:2rem;margin-bottom:2rem;">
+    <img src="/img/1cwk50/Screenshot 2024-05-13 at 17.13.41.png" alt=""  />
+</p>
+<p>This isn't the final version of the flow, but you can see the decisions and linear story style of HotelBooker take shape 🚀</p>
+<h2 id="entities">Entities</h2>
+<p>To simplify this overstretched diagram, my intention was to have some defined entities which interacted together:</p>
+<ul>
+<li><strong>Hotel</strong> – One of many hotels a customer can book</li>
+<li><strong>Customer</strong> – A single customer for a reservation</li>
+<li><strong>Booking</strong> – A contract between a hotel and customer</li>
+<li><strong>Room</strong> – A room inside of the hotel the booking connects to</li>
+<li><strong>Booking date</strong> – The date to book a single room</li>
+</ul>
+<p>Overall, I designed the system to have many hotels, many customers in each hotel, who can book into rooms on specific dates. Each entity is unique and has a loose relationship in the database backend I chose; I'll do that later.</p>
+<h1 id="part-ii-implementation">Part II: Implementation</h1>
+<p>To implement the project, I started out by typing <a href="https://code.visualstudio.com/docs/getstarted/userinterface"><code>ctrl + p</code></a> into my keyboard to open the command palette, then <a href="https://maven.apache.org/"><code>create new maven…</code></a> to initialise the boilerplate. With the basics added, I committed it:</p>
+<p align="center" style="margin-top:2rem;margin-bottom:2rem;">
+    <img src="/img/1cwk50/Screenshot 2024-05-13 at 17.42.58.png" alt="" width="600" />
+</p>
+<p>My second commit to the repository was titled &quot;Implemented general classes for hotel&quot;. In this change, I laid out the framework for the entities HotelBooker relies on:</p>
+<p align="center" style="margin-top:2rem;margin-bottom:2rem;">
+    <img src="/img/1cwk50/Screenshot 2024-05-13 at 17.55.43.png" alt="" width="600" />
+</p>
+<h2 id="the-hotel-class">The Hotel Class</h2>
+<p>Let's look at the <em>Hotel</em> class first, as it's currently the top-level of our hierarchy:</p>
+<pre data-lang="java" style="background-color:#2b2c2f;color:#cccece;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#c594c5;">package </span><span>com</span><span style="color:#5fb3b3;">.</span><span>ogriffiths</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">HashSet</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">UUID</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">Hotel </span><span style="color:#5fb3b3;">{
+</span><span>    </span><span style="color:#c594c5;">public </span><span style="color:#fac863;">UUID </span><span>id</span><span style="color:#5fb3b3;">;
+</span><span>    </span><span style="color:#c594c5;">public </span><span style="color:#fac863;">String </span><span>name</span><span style="color:#5fb3b3;">;
+</span><span>	
+</span><span>    </span><span style="color:#c594c5;">public </span><span style="color:#fac863;">HashSet</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">Room</span><span style="color:#5fb3b3;">&gt; </span><span>rooms</span><span style="color:#5fb3b3;">;
+</span><span>    </span><span style="color:#c594c5;">public </span><span style="color:#fac863;">HashSet</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">Customer</span><span style="color:#5fb3b3;">&gt; </span><span>customers</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">public </span><span style="color:#6699cc;">Hotel</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">String </span><span style="color:#f99157;">name</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#ec5f67;">this</span><span style="color:#5fb3b3;">.</span><span>id </span><span style="color:#5fb3b3;">= </span><span style="color:#fac863;">UUID</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">randomUUID</span><span style="color:#5fb3b3;">();
+</span><span>        </span><span style="color:#ec5f67;">this</span><span style="color:#5fb3b3;">.</span><span>name </span><span style="color:#5fb3b3;">=</span><span> name</span><span style="color:#5fb3b3;">;
+</span><span>        </span><span style="color:#ec5f67;">this</span><span style="color:#5fb3b3;">.</span><span>rooms </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">HashSet</span><span style="color:#5fb3b3;">&lt;&gt;();
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#5fb3b3;">@</span><span>Override
+</span><span>    </span><span style="color:#c594c5;">public </span><span style="color:#fac863;">String </span><span style="color:#6699cc;">toString</span><span style="color:#5fb3b3;">() {
+</span><span>        </span><span style="color:#fac863;">String</span><span> truncatedId </span><span style="color:#5fb3b3;">=</span><span> id</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">toString</span><span style="color:#5fb3b3;">().</span><span style="color:#6699cc;">substring</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">5</span><span style="color:#5fb3b3;">);
+</span><span>        </span><span style="color:#c594c5;">int</span><span> roomCount </span><span style="color:#5fb3b3;">=</span><span> rooms</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">size</span><span style="color:#5fb3b3;">();
+</span><span>        </span><span style="color:#fac863;">String</span><span> roomPlural </span><span style="color:#5fb3b3;">=</span><span> roomCount </span><span style="color:#5fb3b3;">== </span><span style="color:#f99157;">1 </span><span style="color:#5fb3b3;">? &quot;&quot; : &quot;</span><span style="color:#99c794;">s</span><span style="color:#5fb3b3;">&quot;;
+</span><span>        </span><span style="color:#c594c5;">return </span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">format</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">            </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">%s (%s); %s room%s hotel</span><span style="color:#5fb3b3;">&quot;, 
+</span><span style="color:#6699cc;">            name</span><span style="color:#5fb3b3;">,</span><span style="color:#6699cc;"> truncatedId</span><span style="color:#5fb3b3;">,</span><span style="color:#6699cc;"> roomCount</span><span style="color:#5fb3b3;">,</span><span style="color:#6699cc;"> roomPlural
+</span><span style="color:#6699cc;">        </span><span style="color:#5fb3b3;">);
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+</span></code></pre>
+<p>As you can see, this class has scaffolded the core of what entities should have:</p>
+<ol>
+<li>✅ Unique identifier</li>
+<li>✅ Many rooms (w/relationship)</li>
+<li>✅ Many customers (w/relationship)</li>
+<li>✅ Constructor</li>
+<li>✅ Display override</li>
+</ol>
+<p>The only special part of this class now is the <code>toString</code> method <a href="https://www.geeksforgeeks.org/overriding-in-java/">override</a>, which lets me easily represent this hotel as a string in a standard-library-conforming and reusable manner; throughout this project I've used features in Java to make my project easier to write and <em>maintainable</em>.</p>
+<h2 id="the-roombookings-class">The RoomBookings Class</h2>
+<p>The last class from this commit which I'd like to showcase is the <em>RoomBookings</em> class:</p>
+<pre data-lang="java" style="background-color:#2b2c2f;color:#cccece;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#c594c5;">package </span><span>com</span><span style="color:#5fb3b3;">.</span><span>ogriffiths</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">lang</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">ref</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Reference</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">time</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">LocalDate</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">ArrayList</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">HashMap</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">RoomBookings </span><span style="color:#5fb3b3;">{
+</span><span>    </span><span style="color:#c594c5;">private </span><span style="color:#fac863;">HashMap</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">LocalDate</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">Reference</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">Customer</span><span style="color:#5fb3b3;">&gt;&gt; </span><span>bookings</span><span style="color:#5fb3b3;">;
+</span><span>	
+</span><span>    </span><span style="color:#c594c5;">public </span><span style="color:#6699cc;">RoomBookings</span><span style="color:#5fb3b3;">() {
+</span><span>        </span><span style="color:#ec5f67;">this</span><span style="color:#5fb3b3;">.</span><span>bookings </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">HashMap</span><span style="color:#5fb3b3;">&lt;&gt;();
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>	
+</span><span>    </span><span style="color:#c594c5;">public boolean </span><span style="color:#6699cc;">book</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">LocalDate </span><span style="color:#f99157;">date</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">Reference</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">Customer</span><span style="color:#5fb3b3;">&gt; </span><span style="color:#f99157;">customer</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#c594c5;">if </span><span style="color:#5fb3b3;">(</span><span>bookings</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">get</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">date</span><span style="color:#5fb3b3;">) == </span><span style="color:#f99157;">null</span><span style="color:#5fb3b3;">) {
+</span><span>            bookings</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">put</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">date</span><span style="color:#5fb3b3;">,</span><span style="color:#6699cc;"> customer</span><span style="color:#5fb3b3;">);
+</span><span>            </span><span style="color:#c594c5;">return </span><span style="color:#f99157;">true</span><span style="color:#5fb3b3;">;
+</span><span>        </span><span style="color:#5fb3b3;">}
+</span><span>        </span><span style="color:#c594c5;">return </span><span style="color:#f99157;">false</span><span style="color:#5fb3b3;">;
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>	
+</span><span>	</span><span style="color:#5fb3b3;">@</span><span>Override
+</span><span>	</span><span style="color:#c594c5;">public </span><span style="color:#fac863;">String </span><span style="color:#6699cc;">toString</span><span style="color:#5fb3b3;">() {
+</span><span>        </span><span style="color:#fac863;">ArrayList</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">&gt;</span><span> lines </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">ArrayList</span><span style="color:#5fb3b3;">&lt;&gt;();
+</span><span>        </span><span style="color:#c594c5;">for</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">LocalDate</span><span> date</span><span style="color:#5fb3b3;">:</span><span> bookings</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">keySet</span><span style="color:#5fb3b3;">()) {
+</span><span>            </span><span style="color:#fac863;">Reference</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">Customer</span><span style="color:#5fb3b3;">&gt;</span><span> customer</span><span style="color:#5fb3b3;">=</span><span> bookings</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">get</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">date</span><span style="color:#5fb3b3;">)
+</span><span>            lines</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">add</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">format</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">%s: %s</span><span style="color:#5fb3b3;">&quot;,</span><span style="color:#6699cc;"> date</span><span style="color:#5fb3b3;">,</span><span style="color:#6699cc;"> customer</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">get</span><span style="color:#5fb3b3;">().</span><span style="color:#6699cc;">toString</span><span style="color:#5fb3b3;">()));
+</span><span>        </span><span style="color:#5fb3b3;">}
+</span><span>        </span><span style="color:#c594c5;">return </span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">join</span><span style="color:#5fb3b3;">(&quot; &quot;,</span><span style="color:#6699cc;"> lines</span><span style="color:#5fb3b3;">);
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+</span></code></pre>
+<p>Take note of the <a href="https://www.codecademy.com/learn/fscp-complex-data-structures/modules/fecp-hash-maps/cheatsheet">HashMap</a> data structure I've leveraged; this is a common thread throughout HotelBooker. HashMaps are a great way to represent <a href="https://en.wikipedia.org/wiki/Key%E2%80%93value_database">KV Stores</a> which was originally the way I chose to represent bookings:</p>
+<p align="center" style="margin-top:2rem;margin-bottom:2rem;">
+    <img src="/img/1cwk50/Screenshot 2024-05-13 at 18.34.21.png" alt="" width="700" />
+</p>
+<p>You can also start to see the setup of loosely relational data here – the structure is <code>HashMap&lt;LocalDate, Reference&lt;Customer&gt;&gt;</code> which refers to the customers stored in the <em>Hotel</em> class shown previously ✨</p>
+<p>The last item of note here is my use of for loops to iterate over all of the bookings in the <code>toString</code> override, this demonstrates my use of <a href="https://www.bbc.co.uk/bitesize/guides/zg46tfr/revision/1">iteration</a>.</p>
+<h2 id="the-database-system">The Database System</h2>
+<p>Every entity class inside of HotelBooker is serialised/deserialised with the use of <a href="https://github.com/google/gson">gson</a>:</p>
+<blockquote>
+<p>A Java serialization/deserialization library to convert Java Objects into JSON and back</p>
+</blockquote>
+<p>This is controlled by the <em>Database</em> class:</p>
+<pre data-lang="java" style="background-color:#2b2c2f;color:#cccece;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#c594c5;">package </span><span>com</span><span style="color:#5fb3b3;">.</span><span>ogriffiths</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">io</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">File</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">io</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">FileNotFoundException</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">io</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">PrintWriter</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">time</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">LocalDate</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">HashMap</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Scanner</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">UUID</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">com</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">google</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">gson</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Gson</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">com</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">google</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">gson</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">GsonBuilder</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">Database </span><span style="color:#5fb3b3;">{
+</span><span>    </span><span style="color:#c594c5;">private </span><span style="color:#fac863;">HashMap</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">UUID</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">Hotel</span><span style="color:#5fb3b3;">&gt; </span><span>hotels</span><span style="color:#5fb3b3;">;
+</span><span>    </span><span style="color:#c594c5;">private </span><span style="color:#fac863;">String </span><span>resourcePath</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span>    </span><span style="color:#6699cc;">Database</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">String </span><span style="color:#f99157;">resourcePath</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#ec5f67;">this</span><span style="color:#5fb3b3;">.</span><span>hotels </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">HashMap</span><span style="color:#5fb3b3;">&lt;&gt;();
+</span><span>        </span><span style="color:#ec5f67;">this</span><span style="color:#5fb3b3;">.</span><span>resourcePath </span><span style="color:#5fb3b3;">=</span><span> resourcePath</span><span style="color:#5fb3b3;">;
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">public static </span><span style="color:#fac863;">Database </span><span style="color:#6699cc;">load</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">String </span><span style="color:#f99157;">resourcePath</span><span style="color:#5fb3b3;">) </span><span style="color:#c594c5;">throws </span><span style="color:#fac863;">FileNotFoundException </span><span style="color:#5fb3b3;">{
+</span><span>        </span><span style="color:#fac863;">String</span><span> path </span><span style="color:#5fb3b3;">= </span><span style="color:#fac863;">Main</span><span style="color:#5fb3b3;">.</span><span style="color:#ec5f67;">class</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">getResource</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">resourcePath</span><span style="color:#5fb3b3;">).</span><span style="color:#6699cc;">getPath</span><span style="color:#5fb3b3;">();
+</span><span>        </span><span style="color:#fac863;">File</span><span> file </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">File</span><span style="color:#5fb3b3;">(</span><span>path</span><span style="color:#5fb3b3;">);
+</span><span>        </span><span style="color:#fac863;">Scanner</span><span> fileReader </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">Scanner</span><span style="color:#5fb3b3;">(</span><span>file</span><span style="color:#5fb3b3;">);
+</span><span>
+</span><span>        </span><span style="color:#fac863;">String</span><span> contents </span><span style="color:#5fb3b3;">= &quot;&quot;;
+</span><span>        </span><span style="color:#c594c5;">try </span><span style="color:#5fb3b3;">{
+</span><span>            </span><span style="color:#c594c5;">while </span><span style="color:#5fb3b3;">(</span><span>fileReader</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">hasNextLine</span><span style="color:#5fb3b3;">()) {
+</span><span>                contents </span><span style="color:#5fb3b3;">+=</span><span> fileReader</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">nextLine</span><span style="color:#5fb3b3;">();
+</span><span>                contents </span><span style="color:#5fb3b3;">+= &quot;\n&quot;;
+</span><span>            </span><span style="color:#5fb3b3;">}
+</span><span>        </span><span style="color:#5fb3b3;">} </span><span style="color:#c594c5;">finally </span><span style="color:#5fb3b3;">{
+</span><span>            fileReader</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">close</span><span style="color:#5fb3b3;">();
+</span><span>        </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>        </span><span style="color:#fac863;">Gson</span><span> gson </span><span style="color:#5fb3b3;">= </span><span style="color:#6699cc;">getDeserializer</span><span style="color:#5fb3b3;">();
+</span><span>        </span><span style="color:#fac863;">Database</span><span> db </span><span style="color:#5fb3b3;">=</span><span> gson</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">fromJson</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">contents</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">Database</span><span style="color:#5fb3b3;">.</span><span style="color:#ec5f67;">class</span><span style="color:#5fb3b3;">);
+</span><span>
+</span><span>        </span><span style="color:#c594c5;">if </span><span style="color:#5fb3b3;">(</span><span>db </span><span style="color:#5fb3b3;">== </span><span style="color:#f99157;">null</span><span style="color:#5fb3b3;">) {
+</span><span>            </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">	            </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">Could not find previous database, creating new one</span><span style="color:#5fb3b3;">&quot;
+</span><span style="color:#6699cc;">	        </span><span style="color:#5fb3b3;">);
+</span><span>            db </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">Database</span><span style="color:#5fb3b3;">(</span><span>resourcePath</span><span style="color:#5fb3b3;">);
+</span><span>        </span><span style="color:#5fb3b3;">} </span><span style="color:#c594c5;">else </span><span style="color:#5fb3b3;">{
+</span><span>            db</span><span style="color:#5fb3b3;">.</span><span>resourcePath </span><span style="color:#5fb3b3;">=</span><span> resourcePath</span><span style="color:#5fb3b3;">;
+</span><span>        </span><span style="color:#5fb3b3;">}
+</span><span>        </span><span style="color:#c594c5;">return</span><span> db</span><span style="color:#5fb3b3;">;
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">public void </span><span style="color:#6699cc;">save</span><span style="color:#5fb3b3;">() {
+</span><span>        </span><span style="color:#fac863;">Gson</span><span> gson </span><span style="color:#5fb3b3;">= </span><span style="color:#6699cc;">getDeserializer</span><span style="color:#5fb3b3;">();
+</span><span>        </span><span style="color:#fac863;">String</span><span> payload </span><span style="color:#5fb3b3;">=</span><span> gson</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">toJson</span><span style="color:#5fb3b3;">(</span><span style="color:#ec5f67;">this</span><span style="color:#5fb3b3;">);
+</span><span>
+</span><span>        </span><span style="color:#fac863;">String</span><span> path </span><span style="color:#5fb3b3;">= </span><span style="color:#fac863;">Main</span><span style="color:#5fb3b3;">.</span><span style="color:#ec5f67;">class</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">getResource</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">resourcePath</span><span style="color:#5fb3b3;">).</span><span style="color:#6699cc;">getPath</span><span style="color:#5fb3b3;">();
+</span><span>        </span><span style="color:#fac863;">File</span><span> file </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">File</span><span style="color:#5fb3b3;">(</span><span>path</span><span style="color:#5fb3b3;">);
+</span><span>        </span><span style="color:#c594c5;">try </span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">PrintWriter</span><span> fileWriter </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">PrintWriter</span><span style="color:#5fb3b3;">(</span><span>file</span><span style="color:#5fb3b3;">)) {
+</span><span>            </span><span style="color:#c594c5;">try </span><span style="color:#5fb3b3;">{
+</span><span>                </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">Saving changes..</span><span style="color:#5fb3b3;">&quot;);
+</span><span>                fileWriter</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">write</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">payload</span><span style="color:#5fb3b3;">);
+</span><span>            </span><span style="color:#5fb3b3;">} </span><span style="color:#c594c5;">catch </span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">Exception </span><span style="color:#f99157;">e</span><span style="color:#5fb3b3;">) {
+</span><span>                </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">	                </span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">format</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">		                </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">Failed to save database to file (%s)</span><span style="color:#5fb3b3;">&quot;,
+</span><span style="color:#6699cc;">		                e</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">getMessage</span><span style="color:#5fb3b3;">()
+</span><span style="color:#6699cc;">		            </span><span style="color:#5fb3b3;">)
+</span><span style="color:#6699cc;">		        </span><span style="color:#5fb3b3;">);
+</span><span>            </span><span style="color:#5fb3b3;">} </span><span style="color:#c594c5;">finally </span><span style="color:#5fb3b3;">{
+</span><span>                fileWriter</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">close</span><span style="color:#5fb3b3;">();
+</span><span>            </span><span style="color:#5fb3b3;">}
+</span><span>        </span><span style="color:#5fb3b3;">} </span><span style="color:#c594c5;">catch </span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">FileNotFoundException </span><span style="color:#f99157;">e</span><span style="color:#5fb3b3;">) {
+</span><span>            </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">	            </span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">format</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">		            </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">Failed to load database file to save to (%s)</span><span style="color:#5fb3b3;">&quot;, 
+</span><span style="color:#6699cc;">		            e</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">getMessage</span><span style="color:#5fb3b3;">()
+</span><span style="color:#6699cc;">		        </span><span style="color:#5fb3b3;">)
+</span><span style="color:#6699cc;">		    </span><span style="color:#5fb3b3;">);
+</span><span>        </span><span style="color:#5fb3b3;">}
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">public boolean </span><span style="color:#6699cc;">addHotel</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">Hotel </span><span style="color:#f99157;">hotel</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#5f6364;">// Truncated for blog…
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">public </span><span style="color:#fac863;">HashMap</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">UUID</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">Hotel</span><span style="color:#5fb3b3;">&gt; </span><span style="color:#6699cc;">getHotels</span><span style="color:#5fb3b3;">() {
+</span><span>        </span><span style="color:#5f6364;">// Truncated for blog…
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">public </span><span style="color:#fac863;">Hotel </span><span style="color:#6699cc;">getHotel</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">UUID </span><span style="color:#f99157;">id</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#5f6364;">// Truncated for blog…
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">private static </span><span style="color:#fac863;">Gson </span><span style="color:#6699cc;">getDeserializer</span><span style="color:#5fb3b3;">() {
+</span><span>        </span><span style="color:#fac863;">GsonBuilder</span><span> gsonBuilder </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">GsonBuilder</span><span style="color:#5fb3b3;">();
+</span><span>        gsonBuilder</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">registerTypeAdapter</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">	        </span><span style="color:#fac863;">LocalDate</span><span style="color:#5fb3b3;">.</span><span style="color:#ec5f67;">class</span><span style="color:#5fb3b3;">,
+</span><span style="color:#6699cc;">	        </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">LocalDateTypeAdapter</span><span style="color:#5fb3b3;">()
+</span><span style="color:#6699cc;">	    </span><span style="color:#5fb3b3;">);
+</span><span>
+</span><span>        </span><span style="color:#fac863;">Gson</span><span> gson </span><span style="color:#5fb3b3;">=</span><span> gsonBuilder</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">setPrettyPrinting</span><span style="color:#5fb3b3;">().</span><span style="color:#6699cc;">create</span><span style="color:#5fb3b3;">();
+</span><span>        </span><span style="color:#c594c5;">return</span><span> gson</span><span style="color:#5fb3b3;">;
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+</span></code></pre>
+<p>Some methods of note:</p>
+<ul>
+<li>💾 <code>load</code> will <a href="https://mkyong.com/java/java-read-a-file-from-resources-folder/">deserialise</a> all hotels from the file provided</li>
+<li>💾 <code>save</code> will <a href="https://www.w3schools.com/java/java_files_create.asp">serialise</a> all hotels to the file provided</li>
+<li>🎁 <code>getDeserializer</code> will generate a <a href="https://stackoverflow.com/questions/6096940/how-do-i-write-a-custom-json-deserializer-for-gson">custom</a> deserialiser for dates</li>
+</ul>
+<h2 id="the-selector-system">The Selector System</h2>
+<p>There are multiple places where users have a choice of what they want to pick, so I made a class called <em>Selector</em> which has a list of options and automatically generates an input box for them:</p>
+<pre data-lang="java" style="background-color:#2b2c2f;color:#cccece;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#c594c5;">package </span><span>com</span><span style="color:#5fb3b3;">.</span><span>ogriffiths</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">ArrayList</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Arrays</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">HashMap</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Scanner</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">Selector </span><span style="color:#5fb3b3;">{
+</span><span>    </span><span style="color:#c594c5;">private </span><span style="color:#fac863;">String </span><span>quitOption</span><span style="color:#5fb3b3;">;
+</span><span>    </span><span style="color:#c594c5;">protected </span><span style="color:#fac863;">HashMap</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">&gt; </span><span>options</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">static </span><span style="color:#fac863;">String </span><span>divider </span><span style="color:#5fb3b3;">= &quot;</span><span style="color:#99c794;">--------------------</span><span style="color:#5fb3b3;">&quot;;
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">protected </span><span style="color:#6699cc;">Selector</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">HashMap</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">&gt; </span><span style="color:#f99157;">options</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">String </span><span style="color:#f99157;">quitOption</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#5f6364;">// Shown later…
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">public </span><span style="color:#fac863;">String </span><span style="color:#6699cc;">listSelect</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">Scanner </span><span style="color:#f99157;">stdin</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#5f6364;">// Truncated for blog…
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">private </span><span style="color:#fac863;">String </span><span style="color:#6699cc;">listSelectOnce</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">Scanner </span><span style="color:#f99157;">stdin</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#5f6364;">// Shown later…
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">private </span><span style="color:#fac863;">String </span><span style="color:#6699cc;">generateStartMessage</span><span style="color:#5fb3b3;">() {
+</span><span>        </span><span style="color:#5f6364;">// Truncated for blog…
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">private static int </span><span style="color:#6699cc;">parseUserChoice</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">String </span><span style="color:#f99157;">choice</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#5f6364;">// Truncated for blog…
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+</span></code></pre>
+<p>There's another use of a HashMap here, but I'd like to have a look at the constructor first:</p>
+<pre data-lang="java" style="background-color:#2b2c2f;color:#cccece;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#c594c5;">protected </span><span style="color:#6699cc;">Selector</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">HashMap</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">&gt;</span><span style="color:#6699cc;"> options</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">String</span><span style="color:#6699cc;"> quitOption</span><span style="color:#5fb3b3;">) {
+</span><span>    </span><span style="color:#c594c5;">if </span><span style="color:#5fb3b3;">(</span><span>options</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">size</span><span style="color:#5fb3b3;">() == </span><span style="color:#f99157;">0</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#c594c5;">throw new </span><span style="color:#fac863;">SelectorException</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">Options cannot have no choices inside of it</span><span style="color:#5fb3b3;">&quot;);
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>    </span><span style="color:#ec5f67;">this</span><span style="color:#5fb3b3;">.</span><span>quitOption </span><span style="color:#5fb3b3;">=</span><span> quitOption</span><span style="color:#5fb3b3;">;
+</span><span>    </span><span style="color:#ec5f67;">this</span><span style="color:#5fb3b3;">.</span><span>options </span><span style="color:#5fb3b3;">=</span><span> options</span><span style="color:#5fb3b3;">;
+</span><span style="color:#5fb3b3;">}
+</span></code></pre>
+<p>You can see my first use of a <a href="https://www.bbc.co.uk/bitesize/guides/zh66pbk/revision/6">selection</a> here – an if statement to validate if there were any options passed into this constructor to aid debugging. There isn't good <a href="https://en.wikipedia.org/wiki/Static_program_analysis">static analysis</a> in Java like there is in languages like <a href="https://www.rust-lang.org/">Rust</a>, so runtime errors are the substitute.</p>
+<p>I'd also like to present <code>listSelectOnce</code> for the sake of completeness regarding iteration/selection:</p>
+<pre data-lang="java" style="background-color:#2b2c2f;color:#cccece;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#c594c5;">private </span><span style="color:#fac863;">String </span><span style="color:#6699cc;">listSelectOnce</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">Scanner</span><span style="color:#6699cc;"> stdin</span><span style="color:#5fb3b3;">) {
+</span><span>    </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">generateStartMessage</span><span style="color:#5fb3b3;">());
+</span><span>
+</span><span>    </span><span style="color:#fac863;">ArrayList</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">&gt;</span><span> tiedKeys </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">ArrayList</span><span style="color:#5fb3b3;">&lt;&gt;();
+</span><span>
+</span><span>    </span><span style="color:#fac863;">String</span><span style="color:#c594c5;">[]</span><span> keys </span><span style="color:#5fb3b3;">=</span><span> options</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">keySet</span><span style="color:#5fb3b3;">().</span><span style="color:#6699cc;">toArray</span><span style="color:#5fb3b3;">(</span><span style="color:#c594c5;">new </span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">[</span><span style="color:#6699cc;">options</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">size</span><span style="color:#5fb3b3;">()]);
+</span><span>    </span><span style="color:#fac863;">Arrays</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">sort</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">keys</span><span style="color:#5fb3b3;">);
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">for </span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">String</span><span> key </span><span style="color:#5fb3b3;">:</span><span> keys</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#fac863;">String</span><span> message </span><span style="color:#5fb3b3;">=</span><span> options</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">get</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">key</span><span style="color:#5fb3b3;">);
+</span><span>        </span><span style="color:#c594c5;">int</span><span> index </span><span style="color:#5fb3b3;">=</span><span> tiedKeys</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">size</span><span style="color:#5fb3b3;">() + </span><span style="color:#f99157;">1</span><span style="color:#5fb3b3;">;
+</span><span>        </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">format</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">%s: %s</span><span style="color:#5fb3b3;">&quot;,</span><span style="color:#6699cc;"> index</span><span style="color:#5fb3b3;">,</span><span style="color:#6699cc;"> message</span><span style="color:#5fb3b3;">));
+</span><span>        tiedKeys</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">add</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">key</span><span style="color:#5fb3b3;">);
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">if </span><span style="color:#5fb3b3;">(</span><span>quitOption </span><span style="color:#5fb3b3;">!= </span><span style="color:#f99157;">null</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">            </span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">format</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">%s: %s</span><span style="color:#5fb3b3;">&quot;,</span><span style="color:#6699cc;"> tiedKeys</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">size</span><span style="color:#5fb3b3;">() + </span><span style="color:#f99157;">1</span><span style="color:#5fb3b3;">,</span><span style="color:#6699cc;"> quitOption</span><span style="color:#5fb3b3;">)
+</span><span style="color:#6699cc;">        </span><span style="color:#5fb3b3;">);
+</span><span>        tiedKeys</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">add</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">quit</span><span style="color:#5fb3b3;">&quot;);
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">print</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">Your choice: </span><span style="color:#5fb3b3;">&quot;);
+</span><span>    </span><span style="color:#fac863;">String</span><span> rawChoice </span><span style="color:#5fb3b3;">=</span><span> stdin</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">nextLine</span><span style="color:#5fb3b3;">();
+</span><span>    </span><span style="color:#c594c5;">int</span><span> choice</span><span style="color:#5fb3b3;">;
+</span><span>    </span><span style="color:#c594c5;">try </span><span style="color:#5fb3b3;">{
+</span><span>        choice </span><span style="color:#5fb3b3;">= </span><span style="color:#6699cc;">parseUserChoice</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">rawChoice</span><span style="color:#5fb3b3;">);
+</span><span>    </span><span style="color:#5fb3b3;">} </span><span style="color:#c594c5;">catch </span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">Exception </span><span style="color:#f99157;">err</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#c594c5;">throw new </span><span style="color:#fac863;">SelectorException</span><span style="color:#5fb3b3;">(
+</span><span>            </span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">format</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">                </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">Could not parse choice &#39;%s&#39; to integer</span><span style="color:#5fb3b3;">&quot;,</span><span style="color:#6699cc;"> rawChoice
+</span><span style="color:#6699cc;">            </span><span style="color:#5fb3b3;">),
+</span><span>            err
+</span><span>        </span><span style="color:#5fb3b3;">);
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#fac863;">String</span><span> selected</span><span style="color:#5fb3b3;">;
+</span><span>    </span><span style="color:#c594c5;">try </span><span style="color:#5fb3b3;">{
+</span><span>        selected </span><span style="color:#5fb3b3;">=</span><span> tiedKeys</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">get</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">choice</span><span style="color:#5fb3b3;">);
+</span><span>    </span><span style="color:#5fb3b3;">} </span><span style="color:#c594c5;">catch </span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">Exception </span><span style="color:#f99157;">err</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#c594c5;">throw new </span><span style="color:#fac863;">SelectorException</span><span style="color:#5fb3b3;">(
+</span><span>            </span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">format</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">Choice %s is too high or low</span><span style="color:#5fb3b3;">&quot;,</span><span style="color:#6699cc;"> choice</span><span style="color:#5fb3b3;">),
+</span><span>            err
+</span><span>        </span><span style="color:#5fb3b3;">);
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">divider</span><span style="color:#5fb3b3;">);
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">return</span><span> selected</span><span style="color:#5fb3b3;">;
+</span><span style="color:#5fb3b3;">}
+</span></code></pre>
+<p>You can see the use of <a href="https://www.w3schools.com/java/ref_keyword_protected.asp"><code>protected</code></a> and <a href="https://www.w3schools.com/java/ref_keyword_private.asp"><code>private</code></a> methods here, used to tweak visibility. I like to think of cybersecurity's <a href="https://en.wikipedia.org/wiki/Principle_of_least_privilege">PoLP</a> when it comes to this 🙂</p>
+<h2 id="the-story-system">The Story System</h2>
+<p>My two feature-sets for this project are managing multiple hotels, and managing multiple customer's bookings, all with File I/O from my JSON-based database.</p>
+<p>To construct the user journey, I have made an inheritance system made of many <em>Story</em> classes:</p>
+<p align="center" style="margin-top:2rem;margin-bottom:2rem;">
+    <img src="/img/1cwk50/Screenshot 2024-05-13 at 19.06.29.png" alt="" />
+</p>
+<p>Stories are set out as an interface, defining commonality between all stories:</p>
+<pre data-lang="java" style="background-color:#2b2c2f;color:#cccece;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#c594c5;">package </span><span>com</span><span style="color:#5fb3b3;">.</span><span>ogriffiths</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Scanner</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">public interface </span><span style="color:#fac863;">Story </span><span style="color:#5fb3b3;">{
+</span><span>    </span><span style="color:#c594c5;">static </span><span style="color:#fac863;">String </span><span>divider </span><span style="color:#5fb3b3;">= &quot;</span><span style="color:#99c794;">--------------------</span><span style="color:#5fb3b3;">&quot;;
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">public void </span><span style="color:#6699cc;">launch</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">Database </span><span style="color:#f99157;">db</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">Scanner </span><span style="color:#f99157;">stdin</span><span style="color:#5fb3b3;">);
+</span><span style="color:#5fb3b3;">}
+</span></code></pre>
+<p>Let's see one of these stories in action. This is the <em>LoginHotelStory</em> which implements the <em>Selector</em> interface and <em>Story</em> class to show options to the user once they log into their provided hotel:</p>
+<pre data-lang="java" style="background-color:#2b2c2f;color:#cccece;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#c594c5;">package </span><span>com</span><span style="color:#5fb3b3;">.</span><span>ogriffiths</span><span style="color:#5fb3b3;">.</span><span>Stories</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">HashMap</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Scanner</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">UUID</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">com</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">ogriffiths</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Database</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">com</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">ogriffiths</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Hotel</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">com</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">ogriffiths</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Selector</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">com</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">ogriffiths</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Story</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">LoginHotelStory </span><span style="color:#c594c5;">extends </span><span style="color:#99c794;">Selector </span><span style="color:#c594c5;">implements </span><span style="color:#99c794;">Story </span><span style="color:#5fb3b3;">{
+</span><span>    </span><span style="color:#c594c5;">public </span><span style="color:#6699cc;">LoginHotelStory</span><span style="color:#5fb3b3;">() {
+</span><span>        </span><span style="color:#ec5f67;">super</span><span style="color:#5fb3b3;">(</span><span style="color:#c594c5;">new </span><span style="color:#fac863;">HashMap</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">&gt;() {
+</span><span>            </span><span style="color:#5fb3b3;">{
+</span><span>                </span><span style="color:#6699cc;">put</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">roomlist</span><span style="color:#5fb3b3;">&quot;, &quot;</span><span style="color:#99c794;">🛌 List all rooms in this hotel</span><span style="color:#5fb3b3;">&quot;);
+</span><span>                </span><span style="color:#6699cc;">put</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">roomadd</span><span style="color:#5fb3b3;">&quot;, &quot;</span><span style="color:#99c794;">🛌 Add a new room to this hotel</span><span style="color:#5fb3b3;">&quot;);
+</span><span>                </span><span style="color:#6699cc;">put</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">roomdelete</span><span style="color:#5fb3b3;">&quot;, &quot;</span><span style="color:#99c794;">🛌 Delete a room from this hotel</span><span style="color:#5fb3b3;">&quot;);
+</span><span>                </span><span style="color:#6699cc;">put</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">customerlist</span><span style="color:#5fb3b3;">&quot;, &quot;</span><span style="color:#99c794;">🧑 List all registered customers</span><span style="color:#5fb3b3;">&quot;);
+</span><span>                </span><span style="color:#6699cc;">put</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">customeradd</span><span style="color:#5fb3b3;">&quot;, &quot;</span><span style="color:#99c794;">🧑 Register a new customer</span><span style="color:#5fb3b3;">&quot;);
+</span><span>                </span><span style="color:#6699cc;">put</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">bookinglist</span><span style="color:#5fb3b3;">&quot;, &quot;</span><span style="color:#99c794;">💸 List all bookings in this hotel</span><span style="color:#5fb3b3;">&quot;);
+</span><span>                </span><span style="color:#6699cc;">put</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">bookingadd</span><span style="color:#5fb3b3;">&quot;, &quot;</span><span style="color:#99c794;">💸 Add a new booking to this hotel</span><span style="color:#5fb3b3;">&quot;);
+</span><span>                </span><span style="color:#6699cc;">put</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">bookingdelete</span><span style="color:#5fb3b3;">&quot;, &quot;</span><span style="color:#99c794;">💸 Delete a booking from this hotel</span><span style="color:#5fb3b3;">&quot;);
+</span><span>
+</span><span>            </span><span style="color:#5fb3b3;">}
+</span><span>        </span><span style="color:#5fb3b3;">}, &quot;</span><span style="color:#99c794;">🧨 Log out of this hotel panel</span><span style="color:#5fb3b3;">&quot;);
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#5fb3b3;">@</span><span>Override
+</span><span>    </span><span style="color:#c594c5;">public void </span><span style="color:#6699cc;">launch</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">Database </span><span style="color:#f99157;">db</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">Scanner </span><span style="color:#f99157;">stdin</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#fac863;">ListHotelsStory</span><span> listHotelsStory </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">ListHotelsStory</span><span style="color:#5fb3b3;">();
+</span><span>        listHotelsStory</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">launch</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">db</span><span style="color:#5fb3b3;">,</span><span style="color:#6699cc;"> stdin</span><span style="color:#5fb3b3;">);
+</span><span>        </span><span style="color:#c594c5;">if </span><span style="color:#5fb3b3;">(</span><span>db</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">getHotels</span><span style="color:#5fb3b3;">().</span><span style="color:#6699cc;">isEmpty</span><span style="color:#5fb3b3;">()) {
+</span><span>            </span><span style="color:#c594c5;">return</span><span style="color:#5fb3b3;">; </span><span style="color:#5f6364;">// NOTE: No hotels to login to, list handles output
+</span><span>        </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>        </span><span style="color:#fac863;">Hotel</span><span> hotel </span><span style="color:#5fb3b3;">= </span><span style="color:#6699cc;">getHotel</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">db</span><span style="color:#5fb3b3;">,</span><span style="color:#6699cc;"> stdin</span><span style="color:#5fb3b3;">);
+</span><span>        </span><span style="color:#c594c5;">if </span><span style="color:#5fb3b3;">(</span><span>hotel </span><span style="color:#5fb3b3;">== </span><span style="color:#f99157;">null</span><span style="color:#5fb3b3;">) {
+</span><span>            </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">divider</span><span style="color:#5fb3b3;">);
+</span><span>            </span><span style="color:#c594c5;">return</span><span style="color:#5fb3b3;">;
+</span><span>        </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>        </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">divider</span><span style="color:#5fb3b3;">);
+</span><span>        </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">format</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">Logging into %s</span><span style="color:#5fb3b3;">&quot;,</span><span style="color:#6699cc;"> hotel</span><span style="color:#5fb3b3;">));
+</span><span>        </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">Please wait..</span><span style="color:#5fb3b3;">&quot;);
+</span><span>        </span><span style="color:#6699cc;">fakeLoading</span><span style="color:#5fb3b3;">();
+</span><span>        </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">Logged in successfully!</span><span style="color:#5fb3b3;">&quot;);
+</span><span>        </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">divider</span><span style="color:#5fb3b3;">);
+</span><span>
+</span><span>        </span><span style="color:#6699cc;">continualOptions</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">db</span><span style="color:#5fb3b3;">,</span><span style="color:#6699cc;"> hotel</span><span style="color:#5fb3b3;">,</span><span style="color:#6699cc;"> stdin</span><span style="color:#5fb3b3;">);
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">private </span><span style="color:#fac863;">Hotel </span><span style="color:#6699cc;">getHotel</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">Database </span><span style="color:#f99157;">db</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">Scanner </span><span style="color:#f99157;">stdin</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#5f6364;">// Truncated for blog…
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">private </span><span style="color:#fac863;">String </span><span style="color:#6699cc;">inputHotelId</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">Scanner </span><span style="color:#f99157;">stdin</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#5f6364;">// Truncated for blog…
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">private static void </span><span style="color:#6699cc;">fakeLoading</span><span style="color:#5fb3b3;">() {
+</span><span>        </span><span style="color:#5f6364;">// Truncated for blog…
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">private void </span><span style="color:#6699cc;">continualOptions</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">Database </span><span style="color:#f99157;">db</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">Hotel </span><span style="color:#f99157;">hotel</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">Scanner </span><span style="color:#f99157;">stdin</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#c594c5;">while </span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">true</span><span style="color:#5fb3b3;">) {
+</span><span>            </span><span style="color:#fac863;">String</span><span> choice </span><span style="color:#5fb3b3;">= </span><span style="color:#6699cc;">listSelect</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">stdin</span><span style="color:#5fb3b3;">);
+</span><span>            </span><span style="color:#c594c5;">switch </span><span style="color:#5fb3b3;">(</span><span>choice</span><span style="color:#5fb3b3;">) {
+</span><span>                </span><span style="color:#c594c5;">case </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">roomlist</span><span style="color:#5fb3b3;">&quot;:
+</span><span>                    </span><span style="color:#fac863;">ListRoomsStory</span><span> listRoomsStory </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">ListRoomsStory</span><span style="color:#5fb3b3;">();
+</span><span>                    listRoomsStory</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">launch</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">db</span><span style="color:#5fb3b3;">,</span><span style="color:#6699cc;"> hotel</span><span style="color:#5fb3b3;">,</span><span style="color:#6699cc;"> stdin</span><span style="color:#5fb3b3;">);
+</span><span>                    </span><span style="color:#c594c5;">break</span><span style="color:#5fb3b3;">;
+</span><span>                </span><span style="color:#5f6364;">// More cases here, truncated for blog…
+</span><span>                </span><span style="color:#c594c5;">default</span><span style="color:#5fb3b3;">:
+</span><span>                    </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">divider</span><span style="color:#5fb3b3;">);
+</span><span>                    </span><span style="color:#c594c5;">return</span><span style="color:#5fb3b3;">;
+</span><span>            </span><span style="color:#5fb3b3;">}
+</span><span>        </span><span style="color:#5fb3b3;">}
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+</span></code></pre>
+<p>I've also made use of a <a href="https://www.w3schools.com/java/java_switch.asp">switch-case</a> expression here – this lets me match cases for each option picked so I can patch the next option through once the user selects it.</p>
+<p>Because this is a selector, I wanted to make sure the options are shown continually when a story finishes; when it's <code>launch</code> function returns <em>without</em> throwing an <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Exception.html">exception</a>. I have used a <code>while (true)</code> statement to loop forever to accomplish this.</p>
+<p>Overall, I've used the slightly more advanced constructs of <a href="https://stackify.com/oop-concept-inheritance/">inheritance</a> and <a href="https://www.sumologic.com/glossary/polymorphism/">polymorphism</a> to extend the properties of the <em>Selector</em> class, whilst also using interfaces to define commonality between stories:</p>
+<p align="center" style="margin-top:2rem;margin-bottom:2rem;">
+    <img src="/img/1cwk50/Pasted image 20240513194155.png" alt="" width="300" />
+</p>
+<h2 id="recursion">Recursion</h2>
+<p>The last programming construct I'd like to touch on in this post is recursion. I've used it throughout HotelBooker in a limited manner.</p>
+<p>There are a few cases in the project where I've needed to loop if a user provides invalid input, so I've recursed the input function back in on itself instead of having a bulky loop, for example in the <em>DeleteBookingStory</em>:</p>
+<pre data-lang="java" style="background-color:#2b2c2f;color:#cccece;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#c594c5;">private boolean </span><span style="color:#6699cc;">getConfirmation</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">Scanner</span><span style="color:#6699cc;"> stdin</span><span style="color:#5fb3b3;">) {
+</span><span>    </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">print</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">Please confirm removal (y/n): </span><span style="color:#5fb3b3;">&quot;);
+</span><span>    </span><span style="color:#fac863;">String</span><span> confirm </span><span style="color:#5fb3b3;">=</span><span> stdin</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">nextLine</span><span style="color:#5fb3b3;">().</span><span style="color:#6699cc;">toLowerCase</span><span style="color:#5fb3b3;">();
+</span><span>    </span><span style="color:#c594c5;">if </span><span style="color:#5fb3b3;">(</span><span>confirm</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">equals</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">y</span><span style="color:#5fb3b3;">&quot;) ||</span><span> confirm</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">equals</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">yes</span><span style="color:#5fb3b3;">&quot;)) {
+</span><span>        </span><span style="color:#c594c5;">return </span><span style="color:#f99157;">true</span><span style="color:#5fb3b3;">;
+</span><span>    </span><span style="color:#5fb3b3;">} </span><span style="color:#c594c5;">else if </span><span style="color:#5fb3b3;">(</span><span>confirm</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">equals</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">n</span><span style="color:#5fb3b3;">&quot;) ||</span><span> confirm</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">equals</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">b</span><span style="color:#5fb3b3;">&quot;) ||</span><span> confirm</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">equals</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">no</span><span style="color:#5fb3b3;">&quot;)) {
+</span><span>        </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">Cancelled unbooking this room successfully</span><span style="color:#5fb3b3;">&quot;);
+</span><span>        </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">divider</span><span style="color:#5fb3b3;">);
+</span><span>        </span><span style="color:#c594c5;">return </span><span style="color:#f99157;">false</span><span style="color:#5fb3b3;">;
+</span><span>    </span><span style="color:#5fb3b3;">} </span><span style="color:#c594c5;">else </span><span style="color:#5fb3b3;">{
+</span><span>        </span><span style="color:#fac863;">System</span><span style="color:#5fb3b3;">.</span><span>out</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">println</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">That&#39;s not a valid confirmation, please try again</span><span style="color:#5fb3b3;">&quot;);
+</span><span>        </span><span style="color:#c594c5;">return </span><span style="color:#6699cc;">getConfirmation</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">stdin</span><span style="color:#5fb3b3;">);
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+</span></code></pre>
+<h1 id="part-iii-testing">Part III: Testing</h1>
+<p>During development, I didn't initially implement unit tests because the nature of the project didn't call for it. There were only a couple places which I <em>could</em> easily unit test, and those were covered by <a href="https://en.wikipedia.org/wiki/Manual_testing">manual testing</a>.</p>
+<p align="center" style="margin-top:2rem;margin-bottom:2rem;">
+    <img src="/img/1cwk50/Pasted image 20240513202709.png" alt="" width="600" />
+</p>
+<p>Towards the end of the project, development slowed down due to this <a href="https://www.productplan.com/glossary/technical-debt/">tech debt</a>. Therefore, I decided to patch the system up with unit tests; especially because I started to implement helper methods for aspects like <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete">CRUD'ing</a> entities.</p>
+<p>To test, I used the <a href="https://junit.org/junit5/">JUnit</a> library and wrote tests for virtually every non-<code>launch</code> method, here's an example from <em>CustomerTest</em>:</p>
+<pre data-lang="java" style="background-color:#2b2c2f;color:#cccece;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#c594c5;">package </span><span>com</span><span style="color:#5fb3b3;">.</span><span>ogriffiths</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">import static </span><span style="color:#fac863;">org</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">junit</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Assert</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">assertEquals</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">io</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">ByteArrayInputStream</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">io</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">InputStream</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">java</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">util</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Scanner</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">import </span><span style="color:#fac863;">org</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">junit</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Test</span><span style="color:#5fb3b3;">;
+</span><span>
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">CustomerTest </span><span style="color:#5fb3b3;">{
+</span><span>    </span><span style="color:#5fb3b3;">@</span><span>Test
+</span><span>    </span><span style="color:#c594c5;">public void </span><span style="color:#6699cc;">testConstructor</span><span style="color:#5fb3b3;">() {
+</span><span>        </span><span style="color:#fac863;">Customer</span><span> customer </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">Customer</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">John Doe</span><span style="color:#5fb3b3;">&quot;);
+</span><span>        </span><span style="color:#6699cc;">assertEquals</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">John Doe</span><span style="color:#5fb3b3;">&quot;,</span><span style="color:#6699cc;"> customer</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">name</span><span style="color:#5fb3b3;">);
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#5fb3b3;">@</span><span>Test
+</span><span>    </span><span style="color:#c594c5;">public void </span><span style="color:#6699cc;">testToString</span><span style="color:#5fb3b3;">() {
+</span><span>        </span><span style="color:#fac863;">Customer</span><span> customer </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">Customer</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">John Doe</span><span style="color:#5fb3b3;">&quot;);
+</span><span>        </span><span style="color:#6699cc;">assertEquals</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">	        </span><span style="color:#fac863;">String</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">format</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">John Doe (%s)</span><span style="color:#5fb3b3;">&quot;,</span><span style="color:#6699cc;"> customer</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">id</span><span style="color:#5fb3b3;">),
+</span><span style="color:#6699cc;">	        customer</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">toString</span><span style="color:#5fb3b3;">()
+</span><span style="color:#6699cc;">	    </span><span style="color:#5fb3b3;">);
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#5fb3b3;">@</span><span>Test
+</span><span>    </span><span style="color:#c594c5;">public void </span><span style="color:#6699cc;">testFromStdin</span><span style="color:#5fb3b3;">() {
+</span><span>        </span><span style="color:#fac863;">Database</span><span> db </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">Database</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">/db.json</span><span style="color:#5fb3b3;">&quot;);
+</span><span>        </span><span style="color:#fac863;">Hotel</span><span> hotel </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">Hotel</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">Hotel Budapest</span><span style="color:#5fb3b3;">&quot;);
+</span><span>        </span><span style="color:#fac863;">Scanner</span><span> stdin </span><span style="color:#5fb3b3;">= </span><span style="color:#6699cc;">generateStdin</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">John Doe</span><span style="color:#5fb3b3;">\n&quot;);
+</span><span>        </span><span style="color:#fac863;">Customer</span><span> customer </span><span style="color:#5fb3b3;">= </span><span style="color:#fac863;">Customer</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">fromStdin</span><span style="color:#5fb3b3;">(</span><span style="color:#6699cc;">db</span><span style="color:#5fb3b3;">,</span><span style="color:#6699cc;"> hotel</span><span style="color:#5fb3b3;">,</span><span style="color:#6699cc;"> stdin</span><span style="color:#5fb3b3;">);
+</span><span>        </span><span style="color:#6699cc;">assertEquals</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">John Doe</span><span style="color:#5fb3b3;">&quot;,</span><span style="color:#6699cc;"> customer</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">name</span><span style="color:#5fb3b3;">);
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span>
+</span><span>    </span><span style="color:#c594c5;">private </span><span style="color:#fac863;">Scanner </span><span style="color:#6699cc;">generateStdin</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">String </span><span style="color:#f99157;">input</span><span style="color:#5fb3b3;">) {
+</span><span>        </span><span style="color:#fac863;">InputStream</span><span> stdin </span><span style="color:#5fb3b3;">= </span><span style="color:#c594c5;">new </span><span style="color:#fac863;">ByteArrayInputStream</span><span style="color:#5fb3b3;">(</span><span>input</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">getBytes</span><span style="color:#5fb3b3;">());
+</span><span>        </span><span style="color:#c594c5;">return new </span><span style="color:#fac863;">Scanner</span><span style="color:#5fb3b3;">(</span><span>stdin</span><span style="color:#5fb3b3;">);
+</span><span>    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+</span></code></pre>
+<p>I opted to not unit test stories in favour of manual tests, the scale is small and they're extremely UI-based, something which I can't easily test for and something which changes quickly, inflicting high <a href="https://www.praxisframework.org/en/library/cost-of-change">cost of change</a>.</p>
+<h1 id="part-iv-conclusion">Part IV: Conclusion</h1>
+<p>Thanks for reading this development log. I hope you've learnt more about HotelBooker and the programming constructs that made it happen.</p>
+<p>~Owen</p>
+
+</div>
+
+    
+    
+<script src="/js/fancydate.js"></script>
+<script src="/js/progressbar.js"></script>
+
+</body>
+
+</html>

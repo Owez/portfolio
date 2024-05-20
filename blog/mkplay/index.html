@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html>
+
+<head>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    
+    <link rel="icon" type="image/x-icon" href="/img/Favicon.png">
+    
+    <link rel="stylesheet" href="/style.css">
+    
+<link rel="stylesheet" href="/article.css">
+
+    
+    <title>Owen Griffiths - Playlist Visualiser
+    </title>
+</head>
+
+<body>
+    
+    
+
+<div class="progress" id="progress"></div>
+
+<nav>
+    <!-- NOTE: navbar should ideally be a component -->
+    <a id="nav-left" class="nav-link" href="/">Owen Griffiths</a>
+    <div>
+        <a id="nav-right" class="nav-link" href="/blog">Blog</a>
+    </div>
+</nav>
+
+<div id="splash" class="blur">
+    <div>
+        
+        <div id="categories">
+            
+            
+            
+            
+            <a href="/blog">Design</a>
+            
+            
+            
+        </div>
+        
+        <p id="title">Playlist Visualiser</p>
+        
+        <div id="statuses">
+            
+            <p class="date">2022-07-27</p>
+        </div>
+    </div>
+</div>
+
+<div id="page">
+    <h1 id="introduction">Introduction</h1>
+<p>There has recently been a spike in popularity with playlist videos on youtube, presenting a scrolling playlist of a specific genre as music in video, as well as audio form, I’ve wanted to create one of these videos but automate the process as much as possible to put programming to a real task!</p>
+<p>Not to mention that this was also a perfect opportunity to tinker with image libraries such as <a href="https://pypi.org/project/PIL/">PIL</a> or the more recent <a href="https://pillow.readthedocs.io/en/stable/">Pillow</a> based upon the former for the first time, for use in more projects down the road.</p>
+<h1 id="generation">Generation</h1>
+<p>To make this script work, I first thought up a plan for converting a playlist in a folder all the way to a finished video that went like so:</p>
+<p><img src="/img/mkplay/mkplaydiag.png" alt="Generation diagram" /></p>
+<p>Essentially, I would loop over all files in a given directory, say <code>/music</code> for example, and build my own tagging API to tag all the images and make a nice representation of a song in succession like so:</p>
+<pre data-lang="none" style="background-color:#2b2c2f;color:#cccece;" class="language-none "><code class="language-none" data-lang="none"><span>[artist] — [album] — [song]
+</span></code></pre>
+<p>Once all the songs where tagged and made into a central <code>Song</code> class with the tagging attached, I looped over them and used the aforementioned Pillow library to generate an image for each one — including an optional background image of my choosing.</p>
+<h1 id="success">Success</h1>
+<p>Once I <a href="https://github.com/owez/tagzen">completed</a> the API, my first semi-successful test of this playlist generator was this screenshot of a rendered Radiohead album:</p>
+<p><img src="/img/mkplay/mkplayeg.png" alt="First working visualisation" /></p>
+<p>It's good to see the visualiser working but there where still a few bugs to iron out; the title font is too large and bold as compared to the rest of the image and the album name has a strange double-space. </p>
+<p>Once all of the issues where fixed and some polish was added to the whole thing, I created two demo videos:</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=annp92OPZgQ">psychedelia.</a></li>
+<li><a href="https://www.youtube.com/watch?v=Sl3XgtKYq4E">one more time.</a></li>
+</ul>
+<h1 id="conclusion">Conclusion</h1>
+<p>The script, now called &quot;mkplay&quot;, is quite easy to use and can be seen/downloaded on it's GitHub repository:</p>
+<p><a href="https://github.com/owez/mkplay"><strong>https://github.com/owez/mkplay</strong></a></p>
+<p>I restored this article to be used in my new blog website, I originally wrote this article in January 2021. I've not done much with this program since, but I'd quite like to mention it to some of the people who make playlists; it would make for a good sequel.</p>
+
+</div>
+
+    
+    
+<script src="/js/fancydate.js"></script>
+<script src="/js/progressbar.js"></script>
+
+</body>
+
+</html>
